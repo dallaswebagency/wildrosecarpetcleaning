@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carpet Cleaning, Repair &amp; Re-Stretching | Wildrose Carpet Cleaning | Edmonton Alberta</title>
+<meta name="description" content="Professional carpet cleaning services in Edmonton, Alberta and Surrounding Areas.">
+<meta name="theme-color" content="#14244E">
+<link rel="icon" href="images/wildrose-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B1838;
+  --navy:#14244E;
+  --navy-2:#1D3163;
+  --rose:#F06E9A;
+  --rose-deep:#B93A66;
+  --blush:#FDEBF1;
+  --fibre:#EEF1F7;
+  --line:#D7DDEA;
+  --white:#FFFFFF;
+  --text:#1E2742;
+  --muted:#56607A;
+  --serif:"Young Serif", Georgia, "Times New Roman", serif;
+  --sans:"Instrument Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --wrap:1240px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);color:var(--text);background:var(--white);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--serif);font-weight:400;color:var(--navy);margin:0;line-height:1.08;letter-spacing:-.01em}
+p{margin:0}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+:focus-visible{outline:3px solid var(--rose);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--rose);color:var(--ink);padding:8px 14px;z-index:100}
+.skip:focus{left:8px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;font:600 15px/1 var(--sans);text-decoration:none;padding:16px 24px;border-radius:999px;border:2px solid transparent;transition:background .2s,color .2s,border-color .2s,transform .2s;cursor:pointer}
+.btn-rose{background:var(--rose);color:var(--ink)}
+.btn-rose:hover{background:#F58AAF}
+.btn-line{border-color:var(--navy);color:var(--navy)}
+.btn-line:hover{background:var(--navy);color:var(--white)}
+.btn-light{border-color:rgba(255,255,255,.5);color:var(--white)}
+.btn-light:hover{background:var(--white);color:var(--navy)}
+.btn svg{width:18px;height:18px}
+
+/* header */
+.topbar{background:var(--ink);color:#C9D1E6;font-size:14px}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;min-height:40px;gap:16px}
+.topbar a{text-decoration:none;color:#fff}
+.topbar a:hover{color:var(--rose)}
+.topbar .contacts{display:flex;gap:22px}
+header.site{position:sticky;top:0;z-index:50;background:var(--navy);transition:box-shadow .3s}
+header.site.scrolled{box-shadow:0 10px 30px rgba(11,24,56,.25)}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;min-height:84px;gap:24px}
+.brand img{height:54px;width:auto}
+nav.main ul{list-style:none;display:flex;gap:6px;margin:0;padding:0}
+nav.main a{display:block;color:#fff;text-decoration:none;font-weight:500;font-size:15.5px;padding:10px 16px;border-radius:999px;transition:background .2s}
+nav.main a:hover{background:rgba(255,255,255,.1)}
+nav.main a[aria-current]{background:rgba(240,110,154,.18);color:#FFD3E2}
+.head-cta{display:flex;align-items:center;gap:18px}
+.head-phone{color:#fff;text-decoration:none;font-weight:600;font-size:15.5px;display:flex;align-items:center;gap:8px}
+.head-phone svg{width:18px;height:18px;color:var(--rose)}
+.menu-btn{display:none;background:none;border:2px solid rgba(255,255,255,.4);color:#fff;border-radius:10px;width:46px;height:42px;cursor:pointer}
+.menu-btn span{display:block;width:20px;height:2px;background:#fff;margin:4px auto;transition:transform .25s,opacity .25s}
+
+/* hero */
+.hero{position:relative;min-height:min(88vh,820px);display:flex;align-items:center;overflow:hidden;background:#E9E4DC}
+.hero-art{position:absolute;inset:0;width:100%;height:100%}
+.hero-art .dull{filter:sepia(.5) saturate(.55) brightness(.7) contrast(.9)}
+.mask-all{opacity:0;animation:fadeIn 1s 3.5s forwards}
+.swath{fill:none;stroke:#fff;stroke-linecap:round;stroke-dasharray:3200;stroke-dashoffset:3200;animation:pass 1.6s cubic-bezier(.6,.05,.25,1) forwards}
+.swath.s2{animation-delay:1.25s}
+.swath.s3{animation-delay:2.4s}
+@keyframes pass{to{stroke-dashoffset:0}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.78) 58%,rgba(255,255,255,.93) 100%);pointer-events:none}
+.hero .wrap{position:relative;z-index:2;width:100%;display:flex;justify-content:flex-end}
+.hero-copy{max-width:560px;padding:90px 0 110px}
+.hero h1{font-size:clamp(3.1rem,6.4vw,6rem);line-height:.98}
+.wand-line{display:block;width:min(100%,440px);height:34px;margin:22px 0 26px;color:var(--navy)}
+.wand-line .rod{stroke-dasharray:420;stroke-dashoffset:420;animation:pass 1s .5s ease-out forwards}
+.wand-line .head{opacity:0;animation:fadeIn .4s .4s forwards}
+@keyframes fadeIn{to{opacity:1}}
+.hero-copy p{font-size:clamp(1.05rem,1.4vw,1.2rem);color:#2E3754;max-width:46ch}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+.hero-tag{position:absolute;left:28px;bottom:26px;z-index:2;display:flex;align-items:center;gap:10px;background:rgba(11,24,56,.82);backdrop-filter:blur(6px);color:#fff;padding:10px 18px 10px 12px;border-radius:999px;font-size:14px;font-weight:500}
+.hero-tag svg{width:24px;height:24px}
+
+/* expertise */
+.expertise{padding:130px 0 120px;position:relative}
+.expertise .grid{display:grid;grid-template-columns:1.05fr 1fr;gap:80px;align-items:center}
+.photo-stack{position:relative;padding:0 60px 80px 0}
+.photo-stack .main{border-radius:200px 200px 24px 24px;overflow:hidden;aspect-ratio:4/4.6}
+.photo-stack .main img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.photo-stack .inset{position:absolute;right:0;bottom:0;width:46%;border-radius:18px;overflow:hidden;border:8px solid var(--white);box-shadow:0 24px 50px rgba(20,36,78,.22)}
+.photo-stack .inset img{aspect-ratio:1/1;object-fit:cover;width:100%}
+.photo-stack .bloom{position:absolute;left:-34px;top:40px;width:96px;height:96px;color:var(--rose);animation:spin 26s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.kicker{font-family:var(--serif);color:var(--rose-deep);font-size:1.2rem;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.kicker svg{width:22px;height:22px;color:var(--rose)}
+.expertise h2{font-size:clamp(2.3rem,4.2vw,3.6rem)}
+.expertise .lead{font-size:1.15rem;margin:26px 0 18px;color:var(--text)}
+.expertise .body{color:var(--muted);max-width:48ch}
+.trio{display:flex;flex-wrap:wrap;gap:10px;margin:32px 0 38px;padding:0;list-style:none}
+.trio li{border:1.5px solid var(--line);border-radius:999px;padding:9px 18px;font-weight:600;font-size:15px;color:var(--navy);display:flex;align-items:center;gap:8px}
+.trio li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--rose)}
+
+/* services selector */
+.services{background:var(--navy);color:#DCE2F2;padding:120px 0;position:relative;overflow:hidden}
+.services::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(100deg,rgba(255,255,255,.028) 0 70px,rgba(255,255,255,0) 70px 140px);pointer-events:none}
+.services .wrap{position:relative}
+.sv-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:56px;flex-wrap:wrap}
+.services h2{color:#fff;font-size:clamp(2.4rem,4.4vw,3.8rem)}
+.sv-head p{color:#AEB8D3;margin-top:12px;font-size:1.1rem}
+.sv-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:60px;align-items:stretch}
+.sv-list{display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.14)}
+.sv-tab{all:unset;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:26px 8px 26px 0;border-bottom:1px solid rgba(255,255,255,.14);font-family:var(--serif);font-size:clamp(1.5rem,2.4vw,2.15rem);color:rgba(255,255,255,.5);transition:color .25s,padding .3s}
+.sv-tab .dot{width:44px;height:44px;flex:none;border-radius:50%;border:1.5px solid rgba(255,255,255,.25);display:grid;place-items:center;transition:background .25s,border-color .25s,transform .3s}
+.sv-tab .dot svg{width:18px;height:18px;opacity:.6}
+.sv-tab:hover{color:rgba(255,255,255,.85)}
+.sv-tab[aria-selected="true"]{color:#fff;padding-left:14px}
+.sv-tab[aria-selected="true"] .dot{background:var(--rose);border-color:var(--rose);transform:rotate(-45deg)}
+.sv-tab[aria-selected="true"] .dot svg{opacity:1;color:var(--ink)}
+.sv-tab:focus-visible{outline:3px solid var(--rose);outline-offset:4px}
+.sv-stage{position:relative;border-radius:28px;overflow:hidden;min-height:520px;background:var(--navy-2)}
+.sv-panel{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s}
+.sv-panel.on{opacity:1;visibility:visible}
+.sv-panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 1.2s ease}
+.sv-panel.on img{transform:scale(1)}
+.sv-panel::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,24,56,0) 35%,rgba(11,24,56,.9) 100%)}
+.sv-copy{position:relative;z-index:2;padding:36px 38px;display:flex;justify-content:space-between;align-items:flex-end;gap:26px}
+.sv-copy h3{color:#fff;font-size:1.8rem;margin-bottom:10px}
+.sv-copy p{color:#E3E8F5;max-width:40ch}
+.sv-copy .btn{flex:none}
+.sv-foot{margin-top:46px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;color:#AEB8D3}
+
+/* testimonials */
+.reviews{background:var(--blush);padding:120px 0;position:relative;overflow:hidden}
+.reviews .grid{display:grid;grid-template-columns:.8fr 1.6fr;gap:70px;align-items:start}
+.reviews h2{font-size:clamp(2.2rem,3.8vw,3.2rem)}
+.stars{display:flex;gap:4px;margin:22px 0 30px;color:var(--rose-deep)}
+.stars svg{width:24px;height:24px}
+.rv-names{display:flex;flex-direction:column;gap:10px}
+.rv-name{all:unset;cursor:pointer;display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:16px;font-weight:600;color:var(--navy);transition:background .25s}
+.rv-name .ini{width:42px;height:42px;border-radius:50%;background:var(--white);display:grid;place-items:center;font-family:var(--serif);font-weight:400;color:var(--rose-deep);font-size:1.05rem;transition:background .25s,color .25s}
+.rv-name:hover{background:rgba(255,255,255,.55)}
+.rv-name[aria-selected="true"]{background:var(--white)}
+.rv-name[aria-selected="true"] .ini{background:var(--navy);color:#fff}
+.rv-name:focus-visible{outline:3px solid var(--rose-deep)}
+.rv-stage{position:relative;background:var(--white);border-radius:32px;padding:64px 64px 56px;min-height:420px;box-shadow:0 30px 70px -30px rgba(185,58,102,.35)}
+.rv-stage .qm{position:absolute;top:-34px;left:56px;width:78px;height:78px;border-radius:50%;background:var(--rose);display:grid;place-items:center}
+.rv-stage .qm svg{width:34px;height:34px;color:var(--ink)}
+.rv-panel{display:none}
+.rv-panel.on{display:block;animation:rvIn .55s ease}
+@keyframes rvIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.rv-panel blockquote{margin:0;font-family:var(--serif);font-size:clamp(1.2rem,1.9vw,1.55rem);line-height:1.5;color:var(--navy)}
+.rv-panel cite{display:block;margin-top:28px;font-style:normal;font-weight:600;color:var(--rose-deep)}
+
+/* meet mitch */
+.mitch{padding:130px 0;position:relative}
+.mitch .grid{display:grid;grid-template-columns:1.15fr 1fr .42fr;gap:56px;align-items:center}
+.mitch h2{font-size:clamp(2.6rem,4.8vw,4.2rem);margin-bottom:28px}
+.mitch .txt p{color:var(--muted);margin-bottom:18px;max-width:50ch}
+.mitch .txt p:first-of-type{color:var(--text);font-size:1.12rem}
+.mitch-photos{position:relative;height:640px}
+.mitch-photos figure{margin:0;position:absolute;overflow:hidden;border-radius:22px}
+.mitch-photos .a{left:0;top:0;width:76%;height:78%}
+.mitch-photos .b{right:0;bottom:0;width:48%;height:44%;border:8px solid #fff;border-radius:26px;box-shadow:0 24px 50px rgba(20,36,78,.22)}
+.mitch-photos img{width:100%;height:100%;object-fit:cover}
+.mitch-photos .a img{object-position:50% 40%}
+.reach{position:relative;height:540px}
+.reach svg{width:100%;height:100%;overflow:visible}
+.reach .track{stroke:var(--line);stroke-width:2;stroke-dasharray:4 6}
+.reach .run{stroke:var(--rose);stroke-width:4;stroke-linecap:round;stroke-dasharray:500;stroke-dashoffset:500;transition:stroke-dashoffset 2s cubic-bezier(.5,0,.2,1)}
+.reach.go .run{stroke-dashoffset:0}
+.reach text{font-family:var(--sans);font-size:14px;fill:var(--muted)}
+.reach text.city{font-family:var(--serif);font-size:19px;fill:var(--navy)}
+.reach-cap{font-size:13px;color:var(--muted);margin-top:8px}
+
+/* areas */
+.areas{background:var(--fibre);padding:110px 0;overflow:hidden}
+.areas .top{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:50px}
+.areas h2{font-size:clamp(2.2rem,3.8vw,3.2rem)}
+.areas .top p{color:var(--muted);max-width:46ch;margin-top:14px}
+.towns{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);border-top:1.5px solid var(--navy)}
+.towns li{padding:34px 26px 34px 0;border-right:1px solid var(--line);font-family:var(--serif);font-size:clamp(1.5rem,2.6vw,2.3rem);color:var(--navy);display:flex;flex-direction:column;gap:18px}
+.towns li+li{padding-left:26px}
+.towns li:last-child{border-right:0}
+.towns li svg{width:28px;height:28px;color:var(--rose)}
+.towns li small{font-family:var(--sans);font-size:14px;color:var(--muted)}
+.areas .more{margin-top:44px}
+
+/* footer */
+footer.site{background:var(--ink);color:#AEB8D3;padding:90px 0 0;font-size:15.5px}
+.f-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:50px;padding-bottom:70px}
+.f-grid img{height:66px;width:auto;margin-bottom:22px}
+.f-grid h4{font-family:var(--serif);font-weight:400;color:#fff;font-size:1.3rem;margin:0 0 20px}
+.f-grid ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+.f-grid a{text-decoration:none;color:#DCE2F2}
+.f-grid a:hover{color:var(--rose)}
+.f-big{font-family:var(--serif);color:#fff;font-size:1.5rem;text-decoration:none;display:block;margin-bottom:8px}
+.socials{display:flex;gap:10px}
+.socials a{width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);display:grid;place-items:center;transition:background .2s,border-color .2s}
+.socials a:hover{background:var(--rose);border-color:var(--rose);color:var(--ink)}
+.socials svg{width:18px;height:18px}
+.f-base{border-top:1px solid rgba(255,255,255,.1);padding:24px 0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px}
+.f-base a{color:#fff}
+.f-base a:hover{color:var(--rose)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+.rv.in{opacity:1;transform:none}
+
+/* responsive */
+@media (max-width:1080px){
+  .mitch .grid{grid-template-columns:1fr 1fr}
+  .reach{grid-column:1/-1;height:auto}
+  .reach svg{height:180px}
+  .f-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:960px){
+  nav.main,.head-phone{display:none}
+  .menu-btn{display:block}
+  nav.main.open{display:block;position:absolute;left:0;right:0;top:100%;background:var(--navy);padding:12px 20px 22px;border-top:1px solid rgba(255,255,255,.1)}
+  nav.main.open ul{flex-direction:column}
+  .menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  .menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+  .expertise .grid,.sv-grid,.reviews .grid,.mitch .grid{grid-template-columns:1fr;gap:50px}
+  .hero::after{background:linear-gradient(180deg,rgba(255,255,255,0) 20%,rgba(255,255,255,.85) 55%,rgba(255,255,255,.95) 100%)}
+  .hero{align-items:flex-end;min-height:760px}
+  .hero .wrap{justify-content:flex-start}
+  .hero-copy{padding:280px 0 90px}
+  .hero-tag{display:none}
+  .sv-stage{min-height:440px}
+  .towns{grid-template-columns:1fr 1fr}
+  .towns li{border-bottom:1px solid var(--line)}
+  .towns li:nth-child(2){border-right:0}
+  .towns li:nth-child(3){padding-left:0}
+}
+@media (max-width:620px){
+  body{font-size:16px}
+  .wrap{padding:0 20px}
+  .topbar .hours{display:none}
+  .topbar .wrap{justify-content:center}
+  .brand img{height:44px}
+  .head-cta .btn{padding:12px 16px;font-size:14px}
+  .expertise,.services,.reviews,.mitch{padding:84px 0}
+  .photo-stack{padding:0 30px 60px 0}
+  .photo-stack .bloom{left:-10px;width:70px;height:70px}
+  .sv-copy{flex-direction:column;align-items:flex-start;padding:26px}
+  .rv-stage{padding:56px 26px 34px}
+  .mitch-photos{height:480px}
+  .towns{grid-template-columns:1fr}
+  .towns li,.towns li+li{padding:24px 0;border-right:0;flex-direction:row;align-items:center}
+  .f-grid{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-delay:0s!important;transition-duration:.001ms!important}
+  .rv{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="bloom" viewBox="0 0 100 100"><g fill="currentColor"><circle cx="50" cy="27" r="20"/><circle cx="72" cy="43" r="20"/><circle cx="64" cy="69" r="20"/><circle cx="36" cy="69" r="20"/><circle cx="28" cy="43" r="20"/></g><circle cx="50" cy="51" r="10" fill="#fff"/></symbol>
+    <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="phone" viewBox="0 0 24 24"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1L6.6 10.8z" fill="currentColor"/></symbol>
+    <symbol id="star" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="hours">Family owned business serving Spruce Grove and the Tri region</span>
+    <div class="contacts">
+      <a href="mailto:info@wildrosecarpetcleaning.com?subject=Website%20Inquiry">info@wildrosecarpetcleaning.com</a>
+      <a href="tel:1-780-777-5544">780-777-5544</a>
+    </div>
+  </div>
+</div>
+
+<header class="site" id="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Wildrose Carpet Cleaning home"><img src="images/wildrose-logo.png" alt="Wildrose Carpet Cleaning" width="490" height="157"></a>
+    <nav class="main" id="mainnav" aria-label="Main">
+      <ul>
+        <li><a href="#top" aria-current="page">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ul>
+    </nav>
+    <div class="head-cta">
+      <a class="head-phone" href="tel:1-780-777-5544"><svg><use href="#phone"/></svg>780-777-5544</a>
+      <a class="btn btn-rose" href="https://www.wildrosecarpetcleaning.com/get-a-quote">Get a Quote</a>
+      <button class="menu-btn" aria-expanded="false" aria-controls="mainnav" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO: the wand passes clean stripes across the photo -->
+<section class="hero" aria-labelledby="hero-title">
+  <svg class="hero-art" viewBox="0 0 2132 952" preserveAspectRatio="xMinYMin slice" aria-hidden="true">
+    <defs>
+      <mask id="cleanMask" maskUnits="userSpaceOnUse" x="0" y="0" width="2132" height="952">
+        <rect width="2132" height="952" fill="#000"/>
+        <rect class="mask-all" width="2132" height="952" fill="#fff"/>
+        <path class="swath s1" stroke-width="360" d="M-200 210 C 400 150, 900 300, 1400 210 S 2100 160, 2400 230"/>
+        <path class="swath s2" stroke-width="360" d="M2400 560 C 1800 500, 1300 640, 800 560 S 100 500, -200 590"/>
+        <path class="swath s3" stroke-width="300" d="M-200 880 C 500 840, 1100 940, 1600 870 S 2200 840, 2400 880"/>
+      </mask>
+    </defs>
+    <image class="dull" href="images/hero-dog-carpet.jpg" width="2132" height="952" preserveAspectRatio="xMidYMid slice"/>
+    <image href="images/hero-dog-carpet.jpg" width="2132" height="952" preserveAspectRatio="xMidYMid slice" mask="url(#cleanMask)"/>
+  </svg>
+  <div class="wrap">
+    <div class="hero-copy">
+      <h1 id="hero-title">Enjoy Your Carpet Again</h1>
+      <svg class="wand-line" viewBox="0 0 440 34" aria-hidden="true">
+        <path class="head" d="M4 6 L40 6 L52 20 L4 20 Z" fill="currentColor"/>
+        <path class="rod" d="M48 20 L436 20" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none"/>
+      </svg>
+      <p>Wildrose Carpet Cleaning provides high quality carpet services ensuring that you love and enjoy your carpet once again.</p>
+      <div class="hero-actions">
+        <a class="btn btn-rose" href="#services">Our Services <svg><use href="#arrow"/></svg></a>
+        <a class="btn btn-line" href="https://www.wildrosecarpetcleaning.com/get-a-quote">Get a Quote</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-tag"><svg style="color:var(--rose)"><use href="#bloom"/></svg>Serving Edmonton and surrounding areas</div>
+</section>
+
+<!-- EXPERTISE -->
+<section class="expertise" aria-labelledby="exp-title">
+  <div class="wrap grid">
+    <div class="photo-stack rv">
+      <svg class="bloom" aria-hidden="true"><use href="#bloom"/></svg>
+      <div class="main"><img src="images/mitch-carpet-cleaning.jpg" alt="Mitch from Wildrose Carpet Cleaning with a cleaning wand in a bright living room" loading="lazy"></div>
+      <div class="inset"><img src="images/carpet-cleaning-playroom.jpg" alt="Carpet being deep cleaned in a playroom" loading="lazy"></div>
+    </div>
+    <div class="rv">
+      <p class="kicker"><svg aria-hidden="true"><use href="#bloom"/></svg>Our expertise</p>
+      <h2 id="exp-title">Professional carpet cleaning, repair, and re-stretching.</h2>
+      <p class="lead">Wildrose Carpet Cleaning is a family owned business serving Spruce Grove and the Tri region.</p>
+      <ul class="trio" aria-label="What we do">
+        <li>Cleaning</li><li>Repair</li><li>Re-stretching</li>
+      </ul>
+      <a class="btn btn-line" href="#contact">Contact Us <svg><use href="#arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES: pick a service -->
+<section class="services" id="services" aria-labelledby="sv-title">
+  <div class="wrap">
+    <div class="sv-head">
+      <div>
+        <h2 id="sv-title">Our Services</h2>
+        <p>Select one of our carpet services</p>
+      </div>
+      <a class="btn btn-rose" href="https://www.wildrosecarpetcleaning.com/get-a-quote">Get a Quote</a>
+    </div>
+    <div class="sv-grid">
+      <div class="sv-list" role="tablist" aria-label="Carpet services">
+        <button class="sv-tab" role="tab" id="t-clean" aria-controls="p-clean" aria-selected="true">Carpet Cleaning<span class="dot"><svg><use href="#arrow"/></svg></span></button>
+        <button class="sv-tab" role="tab" id="t-repair" aria-controls="p-repair" aria-selected="false" tabindex="-1">Carpet Repair<span class="dot"><svg><use href="#arrow"/></svg></span></button>
+        <button class="sv-tab" role="tab" id="t-stretch" aria-controls="p-stretch" aria-selected="false" tabindex="-1">Carpet Re-Stretching<span class="dot"><svg><use href="#arrow"/></svg></span></button>
+        <button class="sv-tab" role="tab" id="t-jan" aria-controls="p-jan" aria-selected="false" tabindex="-1">Commercial Janitorial<span class="dot"><svg><use href="#arrow"/></svg></span></button>
+      </div>
+      <div class="sv-stage">
+        <div class="sv-panel on" role="tabpanel" id="p-clean" aria-labelledby="t-clean">
+          <img src="images/carpet-cleaning-wand.jpg" alt="Truck mounted carpet cleaning wand on a light carpet" loading="lazy">
+          <div class="sv-copy"><div><h3>Carpet Cleaning</h3><p>We deep clean your carpets to remove dirt and stains, making them look and feel fresh and new again.</p></div><a class="btn btn-rose" href="https://www.wildrosecarpetcleaning.com/get-a-quote">Book Now</a></div>
+        </div>
+        <div class="sv-panel" role="tabpanel" id="p-repair" aria-labelledby="t-repair" hidden>
+          <img src="images/carpet-repair.jpg" alt="Hands repairing a seam in a grey loop carpet" loading="lazy">
+          <div class="sv-copy"><div><h3>Carpet Repair</h3><p>We fix tears, burns, and other damage to make your carpet look and feel new again.</p></div><a class="btn btn-rose" href="https://www.wildrosecarpetcleaning.com/get-a-quote">Book Now</a></div>
+        </div>
+        <div class="sv-panel" role="tabpanel" id="p-stretch" aria-labelledby="t-stretch" hidden>
+          <img src="images/carpet-re-stretching.jpg" alt="Mitch re-stretching a carpet with a power stretcher" loading="lazy" style="object-position:50% 35%">
+          <div class="sv-copy"><div><h3>Carpet Re-Stretching</h3><p>We smooth out wrinkles and bumps in your carpet, making it look like new again.</p></div><a class="btn btn-rose" href="https://www.wildrosecarpetcleaning.com/get-a-quote">Book Now</a></div>
+        </div>
+        <div class="sv-panel" role="tabpanel" id="p-jan" aria-labelledby="t-jan" hidden>
+          <img src="images/commercial-janitorial.jpg" alt="Commercial janitorial cleaning in a business space" loading="lazy">
+          <div class="sv-copy"><div><h3>Commercial Janitorial</h3><p>We help your building or business feel clean and welcoming to staff and visitors.</p></div><a class="btn btn-rose" href="https://www.wildrosecarpetcleaning.com/get-a-quote">Book Now</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" aria-labelledby="rv-title">
+  <div class="wrap grid">
+    <div>
+      <h2 id="rv-title">Kind words from our customers</h2>
+      <div class="stars" aria-label="Five stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></div>
+      <div class="rv-names" role="tablist" aria-label="Customer reviews">
+        <button class="rv-name" role="tab" aria-selected="true" aria-controls="r1" id="rt1"><span class="ini">JE</span>Jarret Esslinger</button>
+        <button class="rv-name" role="tab" aria-selected="false" aria-controls="r2" id="rt2" tabindex="-1"><span class="ini">DH</span>Deidre Harrison</button>
+        <button class="rv-name" role="tab" aria-selected="false" aria-controls="r3" id="rt3" tabindex="-1"><span class="ini">DK</span>Daniel Koerber</button>
+      </div>
+    </div>
+    <div class="rv-stage">
+      <span class="qm" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 18v-5.5C4 8 6.4 5.4 10 5l.6 2C8.5 7.6 7.6 9 7.5 11H10v7H4zm10 0v-5.5C14 8 16.4 5.4 20 5l.6 2c-2.1.6-3 2-3.1 4H20v7h-6z"/></svg></span>
+      <div class="rv-panel on" role="tabpanel" id="r1" aria-labelledby="rt1">
+        <blockquote>I recently worked with Mitch at Wildrose Carpet Cleaning to clean a deep pile carpet that our puppy was secretly soiling underneath our couch in our basement. Mitch was incredibly responsive to my inquiry and gave me regular updates on the status of my carpet. Understanding how deep of a pile it was, he took the extra time to make sure that is was thoroughly cleaned and the old &ldquo;puppy pee&rdquo; smell was removed.</blockquote>
+        <cite>Jarret Esslinger</cite>
+      </div>
+      <div class="rv-panel" role="tabpanel" id="r2" aria-labelledby="rt2" hidden>
+        <blockquote>Five stars for Wildrose Carpet Cleaning and its superhero owner, Mitch! When a post inspection carpet disaster struck, Mitch was my knight in shining armor. Armed with high-tech tools and an impressive knowledge of carpet science, he transformed my disaster zone into a spotless haven, saving the day and impressing my clients. Not only is he a master at his craft, but Mitch&rsquo;s kind demeanor and humor made the whole experience a delight. Highly recommend for anyone facing their own carpet crises!</blockquote>
+        <cite>Deidre Harrison</cite>
+      </div>
+      <div class="rv-panel" role="tabpanel" id="r3" aria-labelledby="rt3" hidden>
+        <blockquote>Mitch is the man! Kind, hardworking, punctual. Would highly recommend his services. Carpets look amazing!</blockquote>
+        <cite>Daniel Koerber</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEET MITCH -->
+<section class="mitch" aria-labelledby="mitch-title">
+  <div class="wrap grid">
+    <div class="mitch-photos rv">
+      <figure class="a"><img src="images/mitch-wildrose-van.jpg" alt="Mitch standing beside the Wildrose Carpet Cleaning van"></figure>
+      <figure class="b"><img src="images/carpet-repair-detail.jpg" alt="Mitch working on a carpet repair by a doorway"></figure>
+    </div>
+    <div class="txt rv">
+      <h2 id="mitch-title">Meet Mitch</h2>
+      <p>Mitch began Wildrose Carpet Cleaning in 2023, a family-owned and operated truck mounted carpet cleaning service. WCC has since moved to Spruce Grove, where Mitch grew up.</p>
+      <p>Since 2023, Wildrose has grown into a full-service janitorial and carpet cleaning operation serving as south as Red Deer and as north as Yellowknife.</p>
+      <p>Despite the scale of our janitorial work, Mitch still enjoys local repair and restretch jobs. It keeps him hands-on and working with what he loves most; carpet!</p>
+      <a class="btn btn-line" href="mailto:info@wildrosecarpetcleaning.com?subject=A%20Question%20for%20the%20Greatest%20Carpet%20Cleaner%20of%20All%20Time" style="margin-top:12px">Contact Mitch <svg><use href="#arrow"/></svg></a>
+    </div>
+    <div class="reach" id="reach" aria-label="Janitorial service reaches from Red Deer in the south to Yellowknife in the north, based in Spruce Grove">
+      <svg viewBox="0 0 160 520" aria-hidden="true">
+        <!-- spaced by latitude: Yellowknife 62.45, Spruce Grove 53.54, Red Deer 52.27 -->
+        <line class="track" x1="30" y1="20" x2="30" y2="500"/>
+        <path class="run" d="M30 500 L30 20"/>
+        <circle cx="30" cy="20" r="9" fill="#14244E"/>
+        <text class="city" x="52" y="18">Yellowknife</text>
+        <text x="52" y="38">North</text>
+        <g transform="translate(12 415)" style="color:#F06E9A"><use href="#bloom" width="36" height="36"/></g>
+        <text class="city" x="52" y="430">Spruce Grove</text>
+        <text x="52" y="450">Home base</text>
+        <circle cx="30" cy="500" r="9" fill="#14244E"/>
+        <text class="city" x="52" y="500">Red Deer</text>
+        <text x="52" y="520">South</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE AREAS -->
+<section class="areas" aria-labelledby="ar-title">
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <h2 id="ar-title">Service Areas</h2>
+        <p>Serving Edmonton Alberta and Surrounding Areas, including Spruce Grove, Stony Plain and St. Albert.</p>
+      </div>
+      <a class="btn btn-line more" href="https://www.wildrosecarpetcleaning.com">Read More <svg><use href="#arrow"/></svg></a>
+    </div>
+    <ul class="towns">
+      <li><svg aria-hidden="true"><use href="#bloom"/></svg>Edmonton</li>
+      <li><svg aria-hidden="true"><use href="#bloom"/></svg>Spruce Grove</li>
+      <li><svg aria-hidden="true"><use href="#bloom"/></svg>Stony Plain</li>
+      <li><svg aria-hidden="true"><use href="#bloom"/></svg>St. Albert</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="site" id="contact">
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <img src="images/wildrose-logo.png" alt="Wildrose Carpet Cleaning" width="490" height="157" loading="lazy">
+        <p>Professional carpet cleaning services in Edmonton, Alberta and Surrounding Areas.</p>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a class="f-big" href="tel:1-780-777-5544">780-777-5544</a>
+        <a href="mailto:info@wildrosecarpetcleaning.com?subject=Website%20Inquiry">info@wildrosecarpetcleaning.com</a>
+      </div>
+      <div>
+        <h4>Menu</h4>
+        <ul>
+          <li><a href="#top">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+          <li><a href="https://www.wildrosecarpetcleaning.com/get-a-quote">Get a Quote</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Follow</h4>
+        <div class="socials">
+          <a href="https://www.linkedin.com/company/wildrose-carpet-cleaning/" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4V21H3zM9.5 9.75h3.8v1.6h.06c.53-1 1.82-2.05 3.75-2.05 4 0 4.75 2.6 4.75 6V21h-4v-5c0-1.2-.02-2.75-1.68-2.75-1.68 0-1.94 1.3-1.94 2.66V21h-4z"/></svg></a>
+          <a href="https://www.instagram.com/wildrosecarpetcleaning?igsh=MWN4NjZ6dXV0YW1qZg==" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 7.3a4.7 4.7 0 1 0 0 9.4 4.7 4.7 0 0 0 0-9.4zm0 7.7a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm6-7.9a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0zM12 4.2c2.5 0 2.8 0 3.8.06 2.6.12 3.8 1.35 3.9 3.9.05 1 .06 1.3.06 3.8s0 2.8-.06 3.8c-.12 2.5-1.3 3.8-3.9 3.9-1 .05-1.3.06-3.8.06s-2.8 0-3.8-.06c-2.6-.12-3.8-1.35-3.9-3.9-.05-1-.06-1.3-.06-3.8s0-2.8.06-3.8C4.4 5.6 5.6 4.4 8.2 4.3c1-.05 1.3-.06 3.8-.06zM12 2.5c-2.6 0-2.9 0-3.9.06C4.6 2.7 2.7 4.6 2.56 8.1 2.5 9.1 2.5 9.4 2.5 12s0 2.9.06 3.9c.16 3.5 2.05 5.4 5.54 5.54 1 .05 1.3.06 3.9.06s2.9 0 3.9-.06c3.5-.16 5.4-2.05 5.54-5.54.05-1 .06-1.3.06-3.9s0-2.9-.06-3.9C21.3 4.6 19.4 2.7 15.9 2.56 14.9 2.5 14.6 2.5 12 2.5z"/></svg></a>
+          <a href="https://www.facebook.com/profile.php?id=100092485274990" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M13.5 21v-7.5H16l.4-3H13.5V8.6c0-.87.25-1.46 1.5-1.46h1.55V4.45A20 20 0 0 0 14.3 4.3c-2.25 0-3.8 1.37-3.8 3.9v2.3H8v3h2.5V21z"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="f-base">
+      <span>&copy; 2024 by Wildrose Carpet Cleaning</span>
+      <span>Design by <a href="https://cleaningdigital.ca/" target="_blank" rel="noopener">Cleaning Digital</a>.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // sticky header shadow
+  var hdr=document.querySelector('header.site');
+  addEventListener('scroll',function(){hdr.classList.toggle('scrolled',scrollY>20)},{passive:true});
+
+  // mobile menu
+  var mb=document.querySelector('.menu-btn'),nav=document.getElementById('mainnav');
+  mb.addEventListener('click',function(){var o=nav.classList.toggle('open');mb.setAttribute('aria-expanded',o)});
+  nav.addEventListener('click',function(e){if(e.target.tagName==='A'){nav.classList.remove('open');mb.setAttribute('aria-expanded','false')}});
+
+  // generic tabs (services + reviews)
+  function tabs(listSel,onClass){
+    var list=document.querySelector(listSel),btns=[].slice.call(list.querySelectorAll('[role=tab]'));
+    function pick(b,focus){
+      btns.forEach(function(x){
+        var p=document.getElementById(x.getAttribute('aria-controls')),on=x===b;
+        x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;
+        if(on){p.hidden=false;requestAnimationFrame(function(){p.classList.add(onClass)})}
+        else{p.classList.remove(onClass);p.hidden=true}
+      });
+      if(focus)b.focus();
+    }
+    btns.forEach(function(b,i){
+      b.addEventListener('click',function(){pick(b);if(listSel==='.sv-list'&&innerWidth<960){document.querySelector('.sv-stage').scrollIntoView({behavior:'smooth',block:'center'})}});
+      b.addEventListener('keydown',function(e){
+        var k=e.key,n=null;
+        if(k==='ArrowDown'||k==='ArrowRight')n=btns[(i+1)%btns.length];
+        if(k==='ArrowUp'||k==='ArrowLeft')n=btns[(i-1+btns.length)%btns.length];
+        if(n){e.preventDefault();pick(n,true)}
+      });
+    });
+  }
+  tabs('.sv-list','on');
+  tabs('.rv-names','on');
+
+  // reveal on scroll + reach line
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add(e.target.id==='reach'?'go':'in');io.unobserve(e.target)}})},{threshold:.2});
+  document.querySelectorAll('.rv,#reach').forEach(function(el){io.observe(el)});
+})();
+</script>
+</body>
+</html>
