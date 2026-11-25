@@ -12,191 +12,256 @@
 <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#0B1838;
-  --navy:#14244E;
-  --navy-2:#1D3163;
-  --rose:#F06E9A;
-  --rose-deep:#B93A66;
-  --blush:#FDEBF1;
-  --fibre:#EEF1F7;
-  --line:#D7DDEA;
-  --white:#FFFFFF;
-  --text:#1E2742;
-  --muted:#56607A;
-  --serif:"Young Serif", Georgia, "Times New Roman", serif;
-  --sans:"Instrument Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --wrap:1240px;
+  --ink:#0A1634;--navy:#14244E;--navy-2:#1C2F62;--rose:#F06E9A;--rose-2:#F7A3C0;--rose-deep:#B93A66;
+  --blush:#FDEBF1;--fibre:#EEF1F7;--line:#D7DDEA;--white:#fff;--text:#1E2742;--muted:#56607A;
+  --serif:"Young Serif",Georgia,"Times New Roman",serif;
+  --sans:"Instrument Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+  --wrap:1280px;--ease:cubic-bezier(.22,.8,.2,1);
 }
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;font-family:var(--sans);color:var(--text);background:var(--white);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body{margin:0;font-family:var(--sans);color:var(--text);background:var(--white);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{max-width:100%;display:block}
 a{color:inherit}
-h1,h2,h3{font-family:var(--serif);font-weight:400;color:var(--navy);margin:0;line-height:1.08;letter-spacing:-.01em}
+h1,h2,h3{font-family:var(--serif);font-weight:400;color:var(--navy);margin:0;line-height:1.06;letter-spacing:-.015em}
 p{margin:0}
-.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
-:focus-visible{outline:3px solid var(--rose);outline-offset:3px;border-radius:4px}
-.skip{position:absolute;left:-999px;top:8px;background:var(--rose);color:var(--ink);padding:8px 14px;z-index:100}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 32px}
+:focus-visible{outline:3px solid var(--rose);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--rose);color:var(--ink);padding:8px 14px;z-index:200}
 .skip:focus{left:8px}
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--rose);transform-origin:0 50%;transform:scaleX(0);z-index:120}
+/* grain on dark sections */
+.grain{position:relative;isolation:isolate}
+.grain::before{content:"";position:absolute;inset:0;z-index:-1;opacity:.07;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
 /* buttons */
-.btn{display:inline-flex;align-items:center;gap:10px;font:600 15px/1 var(--sans);text-decoration:none;padding:16px 24px;border-radius:999px;border:2px solid transparent;transition:background .2s,color .2s,border-color .2s,transform .2s;cursor:pointer}
-.btn-rose{background:var(--rose);color:var(--ink)}
-.btn-rose:hover{background:#F58AAF}
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:10px;font:600 15px/1 var(--sans);text-decoration:none;padding:17px 26px;border-radius:999px;border:2px solid transparent;transition:background .25s,color .25s,border-color .25s,transform .25s var(--ease),box-shadow .25s;cursor:pointer;white-space:nowrap}
+.btn svg{width:18px;height:18px;transition:transform .3s var(--ease)}
+.btn:hover svg{transform:translateX(4px)}
+.btn-rose{background:var(--rose);color:var(--ink);box-shadow:0 10px 24px -10px rgba(240,110,154,.8)}
+.btn-rose::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);transition:left .6s var(--ease)}
+.btn-rose:hover{transform:translateY(-2px);box-shadow:0 16px 30px -12px rgba(240,110,154,.9)}
+.btn-rose:hover::after{left:130%}
 .btn-line{border-color:var(--navy);color:var(--navy)}
-.btn-line:hover{background:var(--navy);color:var(--white)}
-.btn-light{border-color:rgba(255,255,255,.5);color:var(--white)}
-.btn-light:hover{background:var(--white);color:var(--navy)}
-.btn svg{width:18px;height:18px}
+.btn-line:hover{background:var(--navy);color:#fff}
+.btn-ghost{border-color:rgba(255,255,255,.45);color:#fff}
+.btn-ghost:hover{background:#fff;color:var(--navy)}
 
-/* header */
+/* top + header */
 .topbar{background:var(--ink);color:#C9D1E6;font-size:14px}
 .topbar .wrap{display:flex;justify-content:space-between;align-items:center;min-height:40px;gap:16px}
-.topbar a{text-decoration:none;color:#fff}
-.topbar a:hover{color:var(--rose)}
-.topbar .contacts{display:flex;gap:22px}
-header.site{position:sticky;top:0;z-index:50;background:var(--navy);transition:box-shadow .3s}
-header.site.scrolled{box-shadow:0 10px 30px rgba(11,24,56,.25)}
-header.site .wrap{display:flex;align-items:center;justify-content:space-between;min-height:84px;gap:24px}
-.brand img{height:54px;width:auto}
-nav.main ul{list-style:none;display:flex;gap:6px;margin:0;padding:0}
-nav.main a{display:block;color:#fff;text-decoration:none;font-weight:500;font-size:15.5px;padding:10px 16px;border-radius:999px;transition:background .2s}
-nav.main a:hover{background:rgba(255,255,255,.1)}
-nav.main a[aria-current]{background:rgba(240,110,154,.18);color:#FFD3E2}
-.head-cta{display:flex;align-items:center;gap:18px}
-.head-phone{color:#fff;text-decoration:none;font-weight:600;font-size:15.5px;display:flex;align-items:center;gap:8px}
-.head-phone svg{width:18px;height:18px;color:var(--rose)}
-.menu-btn{display:none;background:none;border:2px solid rgba(255,255,255,.4);color:#fff;border-radius:10px;width:46px;height:42px;cursor:pointer}
+.topbar a{text-decoration:none;color:#fff;display:inline-flex;align-items:center;gap:7px}
+.topbar a:hover{color:var(--rose-2)}
+.topbar svg{width:15px;height:15px;color:var(--rose)}
+.topbar .contacts{display:flex;gap:24px}
+header.site{position:sticky;top:0;z-index:100;background:rgba(20,36,78,.97);backdrop-filter:blur(10px);transition:box-shadow .3s,min-height .3s}
+header.site.scrolled{box-shadow:0 12px 34px rgba(10,22,52,.3)}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;min-height:86px;gap:24px;transition:min-height .3s}
+header.site.scrolled .wrap{min-height:72px}
+.brand img{height:56px;width:auto;transition:height .3s}
+header.site.scrolled .brand img{height:48px}
+nav.main ul{list-style:none;display:flex;gap:4px;margin:0;padding:0}
+nav.main a{position:relative;display:block;color:#fff;text-decoration:none;font-weight:500;font-size:15.5px;padding:10px 18px}
+nav.main a::after{content:"";position:absolute;left:18px;right:18px;bottom:4px;height:2px;background:var(--rose);transform:scaleX(0);transform-origin:0 50%;transition:transform .35s var(--ease)}
+nav.main a:hover::after,nav.main a[aria-current]::after{transform:scaleX(1)}
+.head-cta{display:flex;align-items:center;gap:20px}
+.head-phone{color:#fff;text-decoration:none;font-weight:600;font-size:15.5px;display:flex;align-items:center;gap:10px}
+.head-phone .ic{width:38px;height:38px;border-radius:50%;background:rgba(240,110,154,.16);display:grid;place-items:center}
+.head-phone svg{width:17px;height:17px;color:var(--rose)}
+.menu-btn{display:none;background:none;border:2px solid rgba(255,255,255,.35);border-radius:12px;width:48px;height:44px;cursor:pointer}
 .menu-btn span{display:block;width:20px;height:2px;background:#fff;margin:4px auto;transition:transform .25s,opacity .25s}
 
-/* hero */
-.hero{position:relative;min-height:min(88vh,820px);display:flex;align-items:center;overflow:hidden;background:#E9E4DC}
+/* HERO */
+.hero{position:relative;min-height:min(90vh,860px);display:flex;align-items:center;overflow:hidden;background:#E9E4DC}
 .hero-art{position:absolute;inset:0;width:100%;height:100%}
 .hero-art .dull{filter:sepia(.5) saturate(.55) brightness(.7) contrast(.9)}
-.mask-all{opacity:0;animation:fadeIn 1s 3.5s forwards}
 .swath{fill:none;stroke:#fff;stroke-linecap:round;stroke-dasharray:3200;stroke-dashoffset:3200;animation:pass 1.6s cubic-bezier(.6,.05,.25,1) forwards}
-.swath.s2{animation-delay:1.25s}
-.swath.s3{animation-delay:2.4s}
+.swath.s2{animation-delay:1.25s}.swath.s3{animation-delay:2.4s}
+.mask-all{opacity:0;animation:fadeIn 1s 3.5s forwards}
 @keyframes pass{to{stroke-dashoffset:0}}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.78) 58%,rgba(255,255,255,.93) 100%);pointer-events:none}
-.hero .wrap{position:relative;z-index:2;width:100%;display:flex;justify-content:flex-end}
-.hero-copy{max-width:560px;padding:90px 0 110px}
-.hero h1{font-size:clamp(3.1rem,6.4vw,6rem);line-height:.98}
-.wand-line{display:block;width:min(100%,440px);height:34px;margin:22px 0 26px;color:var(--navy)}
-.wand-line .rod{stroke-dasharray:420;stroke-dashoffset:420;animation:pass 1s .5s ease-out forwards}
-.wand-line .head{opacity:0;animation:fadeIn .4s .4s forwards}
 @keyframes fadeIn{to{opacity:1}}
-.hero-copy p{font-size:clamp(1.05rem,1.4vw,1.2rem);color:#2E3754;max-width:46ch}
-.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
-.hero-tag{position:absolute;left:28px;bottom:26px;z-index:2;display:flex;align-items:center;gap:10px;background:rgba(11,24,56,.82);backdrop-filter:blur(6px);color:#fff;padding:10px 18px 10px 12px;border-radius:999px;font-size:14px;font-weight:500}
-.hero-tag svg{width:24px;height:24px}
+.hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,0) 28%,rgba(255,255,255,.8) 56%,rgba(255,255,255,.95) 100%);pointer-events:none}
+.hero .wrap{position:relative;z-index:2;width:100%;display:flex;justify-content:flex-end}
+.hero-copy{max-width:590px;padding:80px 0 170px;position:relative}
+.hero h1{font-size:clamp(3.2rem,6.8vw,6.6rem);line-height:.95}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero h1 .ln span{display:block;transform:translateY(105%);animation:rise 1s var(--ease) forwards}
+.hero h1 .ln:nth-child(2) span{animation-delay:.15s}
+@keyframes rise{to{transform:none}}
+.wand-line{display:block;width:min(100%,460px);height:34px;margin:24px 0 26px;color:var(--navy)}
+.wand-line .rod{stroke-dasharray:420;stroke-dashoffset:420;animation:pass 1s .7s ease-out forwards}
+.wand-line .head{opacity:0;animation:fadeIn .4s .6s forwards}
+.hero-copy p{font-size:clamp(1.05rem,1.4vw,1.22rem);color:#2E3754;max-width:44ch;opacity:0;animation:fadeIn .8s .9s forwards}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px;opacity:0;animation:fadeIn .8s 1.1s forwards}
+.badge{position:absolute;right:-30px;top:20px;width:132px;height:132px;color:var(--navy)}
+.badge .ring{animation:spin 18s linear infinite;transform-origin:50% 50%}
+.badge text{font:600 10.6px var(--sans);letter-spacing:.14em;fill:var(--navy)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-review{position:absolute;left:32px;bottom:150px;z-index:3;max-width:330px;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-radius:20px;padding:20px 22px;box-shadow:0 24px 50px -20px rgba(10,22,52,.5);opacity:0;transform:translateY(16px);animation:cardIn .9s 3.9s var(--ease) forwards}
+@keyframes cardIn{to{opacity:1;transform:none}}
+.hero-review .stars{display:flex;gap:3px;color:var(--rose-deep);margin-bottom:8px}
+.hero-review .stars svg{width:16px;height:16px}
+.hero-review p{font-family:var(--serif);font-size:1.02rem;line-height:1.45;color:var(--navy)}
+.hero-review span{display:block;margin-top:10px;font-size:13.5px;font-weight:600;color:var(--rose-deep)}
+
+/* service rail overlapping hero */
+.rail{position:relative;z-index:5;margin-top:-92px}
+.rail ul{list-style:none;margin:0;padding:10px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;background:var(--white);border-radius:26px;box-shadow:0 30px 60px -30px rgba(10,22,52,.45)}
+.rail a{display:flex;align-items:center;gap:14px;padding:12px;border-radius:18px;text-decoration:none;color:var(--navy);font-weight:600;font-size:15.5px;line-height:1.25;transition:background .3s}
+.rail a:hover{background:var(--blush)}
+.rail img{width:62px;height:62px;border-radius:14px;object-fit:cover;flex:none;transition:transform .4s var(--ease)}
+.rail a:hover img{transform:scale(1.08) rotate(-3deg)}
+.rail small{display:block;font-weight:500;color:var(--muted);font-size:13px;margin-top:3px}
+
+/* marquee */
+.mq-wrap{overflow:hidden;padding:30px 0;margin-top:50px}
+.marquee{background:var(--rose);color:var(--ink);overflow:hidden;padding:20px 0;transform:rotate(-1.2deg);width:104%;margin-left:-2%}
+.marquee .track{display:flex;gap:0;width:max-content;animation:slide 38s linear infinite}
+.marquee span{font-family:var(--serif);font-size:clamp(1.4rem,2.4vw,2rem);white-space:nowrap;display:flex;align-items:center;gap:26px;padding-right:26px}
+.marquee svg{width:26px;height:26px;color:var(--white)}
+@keyframes slide{to{transform:translateX(-50%)}}
 
 /* expertise */
-.expertise{padding:130px 0 120px;position:relative}
-.expertise .grid{display:grid;grid-template-columns:1.05fr 1fr;gap:80px;align-items:center}
+.expertise{padding:90px 0 120px}
+.expertise .grid{display:grid;grid-template-columns:1.05fr 1fr;gap:90px;align-items:center}
 .photo-stack{position:relative;padding:0 60px 80px 0}
-.photo-stack .main{border-radius:200px 200px 24px 24px;overflow:hidden;aspect-ratio:4/4.6}
-.photo-stack .main img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
-.photo-stack .inset{position:absolute;right:0;bottom:0;width:46%;border-radius:18px;overflow:hidden;border:8px solid var(--white);box-shadow:0 24px 50px rgba(20,36,78,.22)}
-.photo-stack .inset img{aspect-ratio:1/1;object-fit:cover;width:100%}
-.photo-stack .bloom{position:absolute;left:-34px;top:40px;width:96px;height:96px;color:var(--rose);animation:spin 26s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
+.photo-stack .main{border-radius:220px 220px 26px 26px;overflow:hidden;aspect-ratio:4/4.7}
+.photo-stack .main img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;transition:transform 1.4s var(--ease)}
+.photo-stack:hover .main img{transform:scale(1.04)}
+.photo-stack .inset{position:absolute;right:0;bottom:0;width:46%;border-radius:20px;overflow:hidden;border:8px solid #fff;box-shadow:0 24px 50px rgba(20,36,78,.22)}
+.photo-stack .inset img{aspect-ratio:1;object-fit:cover;width:100%}
+.photo-stack .since{position:absolute;left:-26px;bottom:120px;background:var(--navy);color:#fff;border-radius:22px;padding:18px 22px;box-shadow:0 20px 40px -14px rgba(10,22,52,.6)}
+.photo-stack .since b{display:block;font-family:var(--serif);font-weight:400;font-size:2.4rem;line-height:1;color:var(--rose-2)}
+.photo-stack .since span{font-size:13.5px;color:#C9D1E6}
+.photo-stack .bloom{position:absolute;right:30px;top:-24px;width:84px;height:84px;color:var(--rose);animation:spin 26s linear infinite}
 .kicker{font-family:var(--serif);color:var(--rose-deep);font-size:1.2rem;margin-bottom:16px;display:flex;align-items:center;gap:10px}
 .kicker svg{width:22px;height:22px;color:var(--rose)}
-.expertise h2{font-size:clamp(2.3rem,4.2vw,3.6rem)}
-.expertise .lead{font-size:1.15rem;margin:26px 0 18px;color:var(--text)}
-.expertise .body{color:var(--muted);max-width:48ch}
-.trio{display:flex;flex-wrap:wrap;gap:10px;margin:32px 0 38px;padding:0;list-style:none}
-.trio li{border:1.5px solid var(--line);border-radius:999px;padding:9px 18px;font-weight:600;font-size:15px;color:var(--navy);display:flex;align-items:center;gap:8px}
-.trio li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--rose)}
+.expertise h2{font-size:clamp(2.4rem,4.3vw,3.8rem)}
+.expertise .lead{font-size:1.16rem;margin:26px 0 32px;color:var(--text);max-width:46ch}
+.facts{list-style:none;padding:0;margin:0 0 38px;display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line)}
+.facts li{display:flex;gap:14px;align-items:flex-start;padding:18px 16px 18px 0;border-bottom:1px solid var(--line);font-size:15.5px;color:var(--muted)}
+.facts li:nth-child(odd){border-right:1px solid var(--line)}
+.facts li:nth-child(even){padding-left:18px}
+.facts .ic{width:40px;height:40px;border-radius:12px;background:var(--blush);display:grid;place-items:center;flex:none;color:var(--rose-deep)}
+.facts .ic svg{width:20px;height:20px}
+.facts b{display:block;color:var(--navy);font-weight:600;font-size:15.5px}
 
-/* services selector */
-.services{background:var(--navy);color:#DCE2F2;padding:120px 0;position:relative;overflow:hidden}
-.services::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(100deg,rgba(255,255,255,.028) 0 70px,rgba(255,255,255,0) 70px 140px);pointer-events:none}
-.services .wrap{position:relative}
+/* services */
+.services{background:var(--navy);color:#DCE2F2;padding:120px 0;overflow:hidden}
+.services .lines{position:absolute;inset:0;z-index:-1;background:repeating-linear-gradient(100deg,rgba(255,255,255,.03) 0 70px,transparent 70px 140px)}
 .sv-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:56px;flex-wrap:wrap}
-.services h2{color:#fff;font-size:clamp(2.4rem,4.4vw,3.8rem)}
-.sv-head p{color:#AEB8D3;margin-top:12px;font-size:1.1rem}
-.sv-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:60px;align-items:stretch}
+.services h2{color:#fff;font-size:clamp(2.6rem,4.8vw,4.2rem)}
+.sv-head p{color:#AEB8D3;margin-top:12px;font-size:1.12rem}
+.sv-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;align-items:stretch}
 .sv-list{display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.14)}
-.sv-tab{all:unset;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:26px 8px 26px 0;border-bottom:1px solid rgba(255,255,255,.14);font-family:var(--serif);font-size:clamp(1.5rem,2.4vw,2.15rem);color:rgba(255,255,255,.5);transition:color .25s,padding .3s}
-.sv-tab .dot{width:44px;height:44px;flex:none;border-radius:50%;border:1.5px solid rgba(255,255,255,.25);display:grid;place-items:center;transition:background .25s,border-color .25s,transform .3s}
+.sv-tab{all:unset;position:relative;cursor:pointer;display:flex;align-items:center;gap:20px;padding:24px 8px 24px 0;border-bottom:1px solid rgba(255,255,255,.14);font-family:var(--serif);font-size:clamp(1.5rem,2.4vw,2.2rem);color:rgba(255,255,255,.45);transition:color .3s,padding .4s var(--ease)}
+.sv-tab .n{font:600 13px var(--sans);color:rgba(255,255,255,.35);width:26px}
+.sv-tab .t{flex:1}
+.sv-tab .dot{width:46px;height:46px;flex:none;border-radius:50%;border:1.5px solid rgba(255,255,255,.25);display:grid;place-items:center;transition:background .3s,border-color .3s,transform .4s var(--ease)}
 .sv-tab .dot svg{width:18px;height:18px;opacity:.6}
+.sv-tab::after{content:"";position:absolute;left:0;bottom:-1px;height:2px;width:0;background:var(--rose)}
 .sv-tab:hover{color:rgba(255,255,255,.85)}
-.sv-tab[aria-selected="true"]{color:#fff;padding-left:14px}
+.sv-tab[aria-selected="true"]{color:#fff;padding-left:12px}
+.sv-tab[aria-selected="true"] .n{color:var(--rose)}
 .sv-tab[aria-selected="true"] .dot{background:var(--rose);border-color:var(--rose);transform:rotate(-45deg)}
 .sv-tab[aria-selected="true"] .dot svg{opacity:1;color:var(--ink)}
-.sv-tab:focus-visible{outline:3px solid var(--rose);outline-offset:4px}
-.sv-stage{position:relative;border-radius:28px;overflow:hidden;min-height:520px;background:var(--navy-2)}
-.sv-panel{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s}
+.services.auto .sv-tab[aria-selected="true"]::after{animation:fill 6s linear forwards}
+@keyframes fill{to{width:100%}}
+.sv-stage{position:relative;border-radius:30px;overflow:hidden;min-height:560px;background:var(--navy-2);box-shadow:0 40px 80px -40px rgba(0,0,0,.6)}
+.sv-panel{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;opacity:0;visibility:hidden;transition:opacity .6s,visibility .6s}
 .sv-panel.on{opacity:1;visibility:visible}
-.sv-panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 1.2s ease}
+.sv-panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.1);transition:transform 6s ease-out}
 .sv-panel.on img{transform:scale(1)}
-.sv-panel::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,24,56,0) 35%,rgba(11,24,56,.9) 100%)}
-.sv-copy{position:relative;z-index:2;padding:36px 38px;display:flex;justify-content:space-between;align-items:flex-end;gap:26px}
-.sv-copy h3{color:#fff;font-size:1.8rem;margin-bottom:10px}
+.sv-panel::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,22,52,0) 40%,rgba(10,22,52,.92) 100%)}
+.sv-copy{position:relative;z-index:2;padding:38px 40px;display:flex;justify-content:space-between;align-items:flex-end;gap:26px}
+.sv-copy h3{color:#fff;font-size:2rem;margin-bottom:10px}
 .sv-copy p{color:#E3E8F5;max-width:40ch}
-.sv-copy .btn{flex:none}
-.sv-foot{margin-top:46px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;color:#AEB8D3}
+.sv-count{position:absolute;top:22px;right:24px;z-index:3;background:rgba(10,22,52,.6);backdrop-filter:blur(6px);color:#fff;border-radius:999px;padding:8px 14px;font-size:13px;font-weight:600}
 
-/* testimonials */
-.reviews{background:var(--blush);padding:120px 0;position:relative;overflow:hidden}
-.reviews .grid{display:grid;grid-template-columns:.8fr 1.6fr;gap:70px;align-items:start}
-.reviews h2{font-size:clamp(2.2rem,3.8vw,3.2rem)}
+/* janitorial band */
+.band{position:relative;min-height:620px;display:flex;align-items:center;overflow:hidden;color:#fff}
+.band .bg{position:absolute;inset:-12% 0;background:url(images/commercial-janitorial-corridor.jpg) 75% 22%/cover no-repeat;will-change:transform}
+.band::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,22,52,.92) 0%,rgba(10,22,52,.75) 38%,rgba(10,22,52,.05) 75%)}
+.band .wrap{position:relative;z-index:2;width:100%}
+.band-box{max-width:520px}
+.band h2{color:#fff;font-size:clamp(2.6rem,5vw,4.4rem);margin-bottom:22px}
+.band p{font-size:1.18rem;color:#DCE2F2;margin-bottom:34px;max-width:38ch}
+.band .acts{display:flex;gap:14px;flex-wrap:wrap}
+
+/* reviews */
+.reviews{background:var(--blush);padding:130px 0;position:relative;overflow:hidden}
+.reviews .bigbloom{--bc:transparent;position:absolute;right:-140px;top:-140px;width:520px;height:520px;color:rgba(240,110,154,.12);animation:spin 60s linear infinite}
+.reviews .grid{position:relative;display:grid;grid-template-columns:.8fr 1.6fr;gap:70px;align-items:start}
+.reviews h2{font-size:clamp(2.3rem,3.9vw,3.4rem)}
 .stars{display:flex;gap:4px;margin:22px 0 30px;color:var(--rose-deep)}
 .stars svg{width:24px;height:24px}
 .rv-names{display:flex;flex-direction:column;gap:10px}
-.rv-name{all:unset;cursor:pointer;display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:16px;font-weight:600;color:var(--navy);transition:background .25s}
-.rv-name .ini{width:42px;height:42px;border-radius:50%;background:var(--white);display:grid;place-items:center;font-family:var(--serif);font-weight:400;color:var(--rose-deep);font-size:1.05rem;transition:background .25s,color .25s}
-.rv-name:hover{background:rgba(255,255,255,.55)}
-.rv-name[aria-selected="true"]{background:var(--white)}
+.rv-name{all:unset;cursor:pointer;display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:18px;font-weight:600;color:var(--navy);transition:background .3s,transform .3s var(--ease)}
+.rv-name .ini{width:44px;height:44px;border-radius:50%;background:#fff;display:grid;place-items:center;font-family:var(--serif);font-weight:400;color:var(--rose-deep);transition:background .3s,color .3s}
+.rv-name:hover{background:rgba(255,255,255,.6)}
+.rv-name[aria-selected="true"]{background:#fff;transform:translateX(8px);box-shadow:0 14px 30px -18px rgba(185,58,102,.6)}
 .rv-name[aria-selected="true"] .ini{background:var(--navy);color:#fff}
-.rv-name:focus-visible{outline:3px solid var(--rose-deep)}
-.rv-stage{position:relative;background:var(--white);border-radius:32px;padding:64px 64px 56px;min-height:420px;box-shadow:0 30px 70px -30px rgba(185,58,102,.35)}
-.rv-stage .qm{position:absolute;top:-34px;left:56px;width:78px;height:78px;border-radius:50%;background:var(--rose);display:grid;place-items:center}
+.rv-stage{position:relative;background:#fff;border-radius:34px;padding:70px 66px 58px;min-height:430px;box-shadow:0 40px 80px -36px rgba(185,58,102,.45)}
+.rv-stage .qm{position:absolute;top:-36px;left:58px;width:80px;height:80px;border-radius:50%;background:var(--rose);display:grid;place-items:center;box-shadow:0 14px 30px -10px rgba(240,110,154,.9)}
 .rv-stage .qm svg{width:34px;height:34px;color:var(--ink)}
 .rv-panel{display:none}
-.rv-panel.on{display:block;animation:rvIn .55s ease}
-@keyframes rvIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.rv-panel blockquote{margin:0;font-family:var(--serif);font-size:clamp(1.2rem,1.9vw,1.55rem);line-height:1.5;color:var(--navy)}
-.rv-panel cite{display:block;margin-top:28px;font-style:normal;font-weight:600;color:var(--rose-deep)}
+.rv-panel.on{display:block;animation:rvIn .6s var(--ease)}
+@keyframes rvIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rv-panel blockquote{margin:0;font-family:var(--serif);font-size:clamp(1.2rem,1.9vw,1.58rem);line-height:1.5;color:var(--navy)}
+.rv-panel cite{display:flex;align-items:center;gap:12px;margin-top:30px;font-style:normal;font-weight:600;color:var(--rose-deep)}
+.rv-panel cite::before{content:"";width:34px;height:2px;background:var(--rose)}
 
-/* meet mitch */
-.mitch{padding:130px 0;position:relative}
+/* work strip */
+.strip{padding:90px 0 0;overflow:hidden}
+.strip .track{display:flex;gap:18px;width:max-content;animation:slide 50s linear infinite}
+.strip:hover .track{animation-play-state:paused}
+.strip figure{margin:0;height:320px;border-radius:24px;overflow:hidden;flex:none}
+.strip figure:nth-child(odd){height:360px;margin-top:0}
+.strip figure:nth-child(even){margin-top:40px}
+.strip img{height:100%;width:auto;object-fit:cover;transition:transform .8s var(--ease)}
+.strip figure:hover img{transform:scale(1.06)}
+
+/* mitch */
+.mitch{padding:120px 0 130px}
 .mitch .grid{display:grid;grid-template-columns:1.15fr 1fr .42fr;gap:56px;align-items:center}
-.mitch h2{font-size:clamp(2.6rem,4.8vw,4.2rem);margin-bottom:28px}
+.mitch h2{font-size:clamp(2.8rem,5vw,4.4rem);margin-bottom:28px}
 .mitch .txt p{color:var(--muted);margin-bottom:18px;max-width:50ch}
-.mitch .txt p:first-of-type{color:var(--text);font-size:1.12rem}
-.mitch-photos{position:relative;height:640px}
-.mitch-photos figure{margin:0;position:absolute;overflow:hidden;border-radius:22px}
+.mitch .txt p:first-of-type{color:var(--text);font-size:1.13rem}
+.mitch-photos{position:relative;height:660px}
+.mitch-photos figure{margin:0;position:absolute;overflow:hidden;border-radius:24px}
 .mitch-photos .a{left:0;top:0;width:76%;height:78%}
-.mitch-photos .b{right:0;bottom:0;width:48%;height:44%;border:8px solid #fff;border-radius:26px;box-shadow:0 24px 50px rgba(20,36,78,.22)}
+.mitch-photos .b{right:0;bottom:0;width:48%;height:44%;border:8px solid #fff;border-radius:28px;box-shadow:0 24px 50px rgba(20,36,78,.22)}
 .mitch-photos img{width:100%;height:100%;object-fit:cover}
 .mitch-photos .a img{object-position:50% 40%}
 .reach{position:relative;height:540px}
 .reach svg{width:100%;height:100%;overflow:visible}
 .reach .track{stroke:var(--line);stroke-width:2;stroke-dasharray:4 6}
-.reach .run{stroke:var(--rose);stroke-width:4;stroke-linecap:round;stroke-dasharray:500;stroke-dashoffset:500;transition:stroke-dashoffset 2s cubic-bezier(.5,0,.2,1)}
+.reach .run{stroke:var(--rose);stroke-width:4;stroke-linecap:round;stroke-dasharray:500;stroke-dashoffset:500;transition:stroke-dashoffset 2.2s cubic-bezier(.5,0,.2,1)}
 .reach.go .run{stroke-dashoffset:0}
 .reach text{font-family:var(--sans);font-size:14px;fill:var(--muted)}
 .reach text.city{font-family:var(--serif);font-size:19px;fill:var(--navy)}
-.reach-cap{font-size:13px;color:var(--muted);margin-top:8px}
 
-/* areas */
-.areas{background:var(--fibre);padding:110px 0;overflow:hidden}
+/* areas + quote */
+.areas{background:var(--fibre);padding:110px 0 0;overflow:hidden}
 .areas .top{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:50px}
-.areas h2{font-size:clamp(2.2rem,3.8vw,3.2rem)}
+.areas h2{font-size:clamp(2.3rem,3.9vw,3.4rem)}
 .areas .top p{color:var(--muted);max-width:46ch;margin-top:14px}
 .towns{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);border-top:1.5px solid var(--navy)}
-.towns li{padding:34px 26px 34px 0;border-right:1px solid var(--line);font-family:var(--serif);font-size:clamp(1.5rem,2.6vw,2.3rem);color:var(--navy);display:flex;flex-direction:column;gap:18px}
+.towns li{position:relative;padding:34px 26px 34px 0;border-right:1px solid var(--line);font-family:var(--serif);font-size:clamp(1.5rem,2.6vw,2.4rem);color:var(--navy);display:flex;flex-direction:column;gap:18px;transition:color .3s}
 .towns li+li{padding-left:26px}
 .towns li:last-child{border-right:0}
-.towns li svg{width:28px;height:28px;color:var(--rose)}
-.towns li small{font-family:var(--sans);font-size:14px;color:var(--muted)}
-.areas .more{margin-top:44px}
+.towns li svg{width:28px;height:28px;color:var(--rose);transition:transform .6s var(--ease)}
+.towns li:hover svg{transform:rotate(180deg) scale(1.15)}
+.quote{margin-top:100px;background:var(--navy);border-radius:36px 36px 0 0;padding:70px 64px;display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center;color:#DCE2F2;overflow:hidden;position:relative}
+.quote h2{color:#fff;font-size:clamp(2.2rem,4vw,3.4rem)}
+.quote .side{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.quote .side a.tel{font-family:var(--serif);font-size:2rem;color:#fff;text-decoration:none}
+.quote .side a.tel:hover{color:var(--rose-2)}
+.quote .side a.mail{color:#C9D1E6}
+.quote .fl{--bc:transparent;position:absolute;right:-60px;bottom:-80px;width:280px;height:280px;color:rgba(240,110,154,.1);animation:spin 40s linear infinite}
 
 /* footer */
-footer.site{background:var(--ink);color:#AEB8D3;padding:90px 0 0;font-size:15.5px}
+footer.site{background:var(--ink);color:#AEB8D3;padding:80px 0 0;font-size:15.5px}
 .f-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:50px;padding-bottom:70px}
 .f-grid img{height:66px;width:auto;margin-bottom:22px}
 .f-grid h4{font-family:var(--serif);font-weight:400;color:#fff;font-size:1.3rem;margin:0 0 20px}
@@ -205,86 +270,100 @@ footer.site{background:var(--ink);color:#AEB8D3;padding:90px 0 0;font-size:15.5p
 .f-grid a:hover{color:var(--rose)}
 .f-big{font-family:var(--serif);color:#fff;font-size:1.5rem;text-decoration:none;display:block;margin-bottom:8px}
 .socials{display:flex;gap:10px}
-.socials a{width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);display:grid;place-items:center;transition:background .2s,border-color .2s}
-.socials a:hover{background:var(--rose);border-color:var(--rose);color:var(--ink)}
+.socials a{width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);display:grid;place-items:center;transition:background .25s,border-color .25s,transform .25s}
+.socials a:hover{background:var(--rose);border-color:var(--rose);color:var(--ink);transform:translateY(-3px)}
 .socials svg{width:18px;height:18px}
 .f-base{border-top:1px solid rgba(255,255,255,.1);padding:24px 0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px}
 .f-base a{color:#fff}
 .f-base a:hover{color:var(--rose)}
 
 /* reveal */
-.rv{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+.rv{opacity:0;transform:translateY(30px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
 .rv.in{opacity:1;transform:none}
+.clip{clip-path:inset(12% 12% 12% 12% round 30px);transition:clip-path 1.3s var(--ease)}
+.clip.in{clip-path:inset(0 0 0 0 round 24px)}
 
 /* responsive */
-@media (max-width:1080px){
+@media (max-width:1100px){
   .mitch .grid{grid-template-columns:1fr 1fr}
-  .reach{grid-column:1/-1;height:auto}
-  .reach svg{height:180px}
+  .reach{grid-column:1/-1;height:auto}.reach svg{height:180px}
   .f-grid{grid-template-columns:1fr 1fr}
+  .rail ul{grid-template-columns:1fr 1fr}
+  .badge{display:none}
 }
 @media (max-width:960px){
   nav.main,.head-phone{display:none}
   .menu-btn{display:block}
-  nav.main.open{display:block;position:absolute;left:0;right:0;top:100%;background:var(--navy);padding:12px 20px 22px;border-top:1px solid rgba(255,255,255,.1)}
+  nav.main.open{display:block;position:absolute;left:0;right:0;top:100%;background:var(--navy);padding:12px 20px 22px}
   nav.main.open ul{flex-direction:column}
   .menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
   .menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
   .menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
-  .expertise .grid,.sv-grid,.reviews .grid,.mitch .grid{grid-template-columns:1fr;gap:50px}
-  .hero::after{background:linear-gradient(180deg,rgba(255,255,255,0) 20%,rgba(255,255,255,.85) 55%,rgba(255,255,255,.95) 100%)}
-  .hero{align-items:flex-end;min-height:760px}
+  .expertise .grid,.sv-grid,.reviews .grid,.mitch .grid,.quote{grid-template-columns:1fr;gap:50px}
+  .hero-shade{background:linear-gradient(180deg,rgba(255,255,255,0) 18%,rgba(255,255,255,.86) 50%,rgba(255,255,255,.96) 100%)}
+  .hero{align-items:flex-end;min-height:820px}
   .hero .wrap{justify-content:flex-start}
-  .hero-copy{padding:280px 0 90px}
-  .hero-tag{display:none}
-  .sv-stage{min-height:440px}
+  .hero-copy{padding:300px 0 150px}
+  .hero-review{display:none}
+  .sv-stage{min-height:460px}
   .towns{grid-template-columns:1fr 1fr}
   .towns li{border-bottom:1px solid var(--line)}
   .towns li:nth-child(2){border-right:0}
   .towns li:nth-child(3){padding-left:0}
+  .band::after{background:linear-gradient(180deg,rgba(10,22,52,.2),rgba(10,22,52,.9) 65%)}
+  .band{align-items:flex-end;padding:260px 0 70px}
 }
 @media (max-width:620px){
   body{font-size:16px}
   .wrap{padding:0 20px}
-  .topbar .hours{display:none}
-  .topbar .wrap{justify-content:center}
+  .topbar .hours,.topbar .contacts a:first-child{display:none}.topbar .wrap{justify-content:center}
+  .reach{display:none}
   .brand img{height:44px}
   .head-cta .btn{padding:12px 16px;font-size:14px}
+  .rail ul{grid-template-columns:1fr}
   .expertise,.services,.reviews,.mitch{padding:84px 0}
   .photo-stack{padding:0 30px 60px 0}
-  .photo-stack .bloom{left:-10px;width:70px;height:70px}
+  .photo-stack .since{left:-6px;bottom:90px;padding:14px 16px}
+  .facts{grid-template-columns:1fr}
+  .facts li:nth-child(odd){border-right:0}.facts li:nth-child(even){padding-left:0}
   .sv-copy{flex-direction:column;align-items:flex-start;padding:26px}
-  .rv-stage{padding:56px 26px 34px}
+  .rv-stage{padding:58px 26px 34px}
   .mitch-photos{height:480px}
+  .strip figure,.strip figure:nth-child(odd){height:240px}
   .towns{grid-template-columns:1fr}
-  .towns li,.towns li+li{padding:24px 0;border-right:0;flex-direction:row;align-items:center}
+  .towns li,.towns li+li{padding:22px 0;border-right:0;flex-direction:row;align-items:center}
+  .quote{padding:50px 26px;border-radius:28px 28px 0 0}
   .f-grid{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.001ms!important;animation-delay:0s!important;transition-duration:.001ms!important}
-  .rv{opacity:1;transform:none}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .rv{opacity:1;transform:none}.clip{clip-path:none}
   html{scroll-behavior:auto}
 }
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"></div>
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <symbol id="bloom" viewBox="0 0 100 100"><g fill="currentColor"><circle cx="50" cy="27" r="20"/><circle cx="72" cy="43" r="20"/><circle cx="64" cy="69" r="20"/><circle cx="36" cy="69" r="20"/><circle cx="28" cy="43" r="20"/></g><circle cx="50" cy="51" r="10" fill="#fff"/></symbol>
-    <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="phone" viewBox="0 0 24 24"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1L6.6 10.8z" fill="currentColor"/></symbol>
-    <symbol id="star" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z" fill="currentColor"/></symbol>
-  </defs>
-</svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="bloom" viewBox="0 0 100 100"><g fill="currentColor"><circle cx="50" cy="27" r="20"/><circle cx="72" cy="43" r="20"/><circle cx="64" cy="69" r="20"/><circle cx="36" cy="69" r="20"/><circle cx="28" cy="43" r="20"/></g><circle cx="50" cy="51" r="10" style="fill:var(--bc,#fff)"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1L6.6 10.8z" fill="currentColor"/></symbol>
+  <symbol id="mail" viewBox="0 0 24 24"><path d="M3 6h18v12H3zM3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="star" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z" fill="currentColor"/></symbol>
+  <symbol id="home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="truck" viewBox="0 0 24 24"><path d="M2 6h12v10H2zM14 9h4l3 3v4h-7M6.5 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM17.5 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="pin" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z M12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="cal" viewBox="0 0 24 24"><path d="M4 6h16v14H4zM4 10h16M8 3v5M16 3v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+</defs></svg>
 
 <div class="topbar">
   <div class="wrap">
     <span class="hours">Family owned business serving Spruce Grove and the Tri region</span>
     <div class="contacts">
-      <a href="mailto:info@wildrosecarpetcleaning.com?subject=Website%20Inquiry">info@wildrosecarpetcleaning.com</a>
-      <a href="tel:1-780-777-5544">780-777-5544</a>
+      <a href="mailto:info@wildrosecarpetcleaning.com?subject=Website%20Inquiry"><svg><use href="#mail"/></svg>info@wildrosecarpetcleaning.com</a>
+      <a href="tel:1-780-777-5544"><svg><use href="#phone"/></svg>780-777-5544</a>
     </div>
   </div>
 </div>
@@ -300,7 +379,7 @@ footer.site{background:var(--ink);color:#AEB8D3;padding:90px 0 0;font-size:15.5p
       </ul>
     </nav>
     <div class="head-cta">
-      <a class="head-phone" href="tel:1-780-777-5544"><svg><use href="#phone"/></svg>780-777-5544</a>
+      <a class="head-phone" href="tel:1-780-777-5544"><span class="ic"><svg><use href="#phone"/></svg></span>780-777-5544</a>
       <a class="btn btn-rose" href="https://www.wildrosecarpetcleaning.com/get-a-quote">Get a Quote</a>
       <button class="menu-btn" aria-expanded="false" aria-controls="mainnav" aria-label="Open menu"><span></span><span></span><span></span></button>
     </div>
@@ -309,7 +388,6 @@ footer.site{background:var(--ink);color:#AEB8D3;padding:90px 0 0;font-size:15.5p
 
 <main id="main">
 
-<!-- HERO: the wand passes clean stripes across the photo -->
 <section class="hero" aria-labelledby="hero-title">
   <svg class="hero-art" viewBox="0 0 2132 952" preserveAspectRatio="xMinYMin slice" aria-hidden="true">
     <defs>
@@ -324,9 +402,16 @@ footer.site{background:var(--ink);color:#AEB8D3;padding:90px 0 0;font-size:15.5p
     <image class="dull" href="images/hero-dog-carpet.jpg" width="2132" height="952" preserveAspectRatio="xMidYMid slice"/>
     <image href="images/hero-dog-carpet.jpg" width="2132" height="952" preserveAspectRatio="xMidYMid slice" mask="url(#cleanMask)"/>
   </svg>
+  <div class="hero-shade"></div>
   <div class="wrap">
     <div class="hero-copy">
-      <h1 id="hero-title">Enjoy Your Carpet Again</h1>
+      <svg class="badge" viewBox="0 0 132 132" aria-hidden="true">
+        <defs><path id="circ" d="M66 66 m-50 0 a50 50 0 1 1 100 0 a50 50 0 1 1 -100 0"/></defs>
+        <circle cx="66" cy="66" r="64" fill="#fff"/>
+        <g class="ring"><text><textPath href="#circ">FAMILY OWNED &#8226; SINCE 2023 &#8226; SPRUCE GROVE &#8226;</textPath></text></g>
+        <use href="#bloom" x="44" y="44" width="44" height="44" style="color:#F06E9A"/>
+      </svg>
+      <h1 id="hero-title"><span class="ln"><span>Enjoy Your</span></span><span class="ln"><span>Carpet Again</span></span></h1>
       <svg class="wand-line" viewBox="0 0 440 34" aria-hidden="true">
         <path class="head" d="M4 6 L40 6 L52 20 L4 20 Z" fill="currentColor"/>
         <path class="rod" d="M48 20 L436 20" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none"/>
@@ -338,61 +423,84 @@ footer.site{background:var(--ink);color:#AEB8D3;padding:90px 0 0;font-size:15.5p
       </div>
     </div>
   </div>
-  <div class="hero-tag"><svg style="color:var(--rose)"><use href="#bloom"/></svg>Serving Edmonton and surrounding areas</div>
+  <div class="hero-review">
+    <div class="stars" aria-label="Five stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></div>
+    <p>Mitch is the man! Kind, hardworking, punctual. Would highly recommend his services. Carpets look amazing!</p>
+    <span>Daniel Koerber</span>
+  </div>
 </section>
 
-<!-- EXPERTISE -->
+<div class="rail">
+  <div class="wrap">
+    <ul>
+      <li><a href="#services" data-svc="0"><img src="images/carpet-cleaning-wand.jpg" alt=""><span>Carpet Cleaning<small>Deep clean</small></span></a></li>
+      <li><a href="#services" data-svc="1"><img src="images/carpet-repair.jpg" alt=""><span>Carpet Repair<small>Tears and burns</small></span></a></li>
+      <li><a href="#services" data-svc="2"><img src="images/carpet-re-stretching.jpg" alt=""><span>Carpet Re-Stretching<small>Wrinkles and bumps</small></span></a></li>
+      <li><a href="#services" data-svc="3"><img src="images/commercial-janitorial.jpg" alt=""><span>Commercial Janitorial<small>Buildings and businesses</small></span></a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="mq-wrap" aria-hidden="true"><div class="marquee">
+  <div class="track">
+    <span>Carpet Cleaning<svg><use href="#bloom"/></svg>Carpet Repair<svg><use href="#bloom"/></svg>Carpet Re-Stretching<svg><use href="#bloom"/></svg>Commercial Janitorial<svg><use href="#bloom"/></svg>Edmonton<svg><use href="#bloom"/></svg>Spruce Grove<svg><use href="#bloom"/></svg>Stony Plain<svg><use href="#bloom"/></svg>St. Albert<svg><use href="#bloom"/></svg></span>
+    <span>Carpet Cleaning<svg><use href="#bloom"/></svg>Carpet Repair<svg><use href="#bloom"/></svg>Carpet Re-Stretching<svg><use href="#bloom"/></svg>Commercial Janitorial<svg><use href="#bloom"/></svg>Edmonton<svg><use href="#bloom"/></svg>Spruce Grove<svg><use href="#bloom"/></svg>Stony Plain<svg><use href="#bloom"/></svg>St. Albert<svg><use href="#bloom"/></svg></span>
+  </div>
+</div></div>
+
 <section class="expertise" aria-labelledby="exp-title">
   <div class="wrap grid">
     <div class="photo-stack rv">
       <svg class="bloom" aria-hidden="true"><use href="#bloom"/></svg>
-      <div class="main"><img src="images/mitch-carpet-cleaning.jpg" alt="Mitch from Wildrose Carpet Cleaning with a cleaning wand in a bright living room" loading="lazy"></div>
-      <div class="inset"><img src="images/carpet-cleaning-playroom.jpg" alt="Carpet being deep cleaned in a playroom" loading="lazy"></div>
+      <div class="main"><img src="images/mitch-carpet-cleaning.jpg" alt="Mitch from Wildrose Carpet Cleaning with a cleaning wand in a bright living room"></div>
+      <div class="inset"><img src="images/carpet-cleaning-playroom.jpg" alt="Carpet being deep cleaned in a playroom"></div>
+      <div class="since"><b>2023</b><span>Started by Mitch</span></div>
     </div>
     <div class="rv">
       <p class="kicker"><svg aria-hidden="true"><use href="#bloom"/></svg>Our expertise</p>
       <h2 id="exp-title">Professional carpet cleaning, repair, and re-stretching.</h2>
       <p class="lead">Wildrose Carpet Cleaning is a family owned business serving Spruce Grove and the Tri region.</p>
-      <ul class="trio" aria-label="What we do">
-        <li>Cleaning</li><li>Repair</li><li>Re-stretching</li>
+      <ul class="facts">
+        <li><span class="ic"><svg><use href="#home"/></svg></span><span><b>Family owned</b>and operated</span></li>
+        <li><span class="ic"><svg><use href="#truck"/></svg></span><span><b>Truck mounted</b>carpet cleaning service</span></li>
+        <li><span class="ic"><svg><use href="#cal"/></svg></span><span><b>Since 2023</b>started by Mitch</span></li>
+        <li><span class="ic"><svg><use href="#pin"/></svg></span><span><b>Spruce Grove</b>where Mitch grew up</span></li>
       </ul>
       <a class="btn btn-line" href="#contact">Contact Us <svg><use href="#arrow"/></svg></a>
     </div>
   </div>
 </section>
 
-<!-- SERVICES: pick a service -->
-<section class="services" id="services" aria-labelledby="sv-title">
+<section class="services grain" id="services" aria-labelledby="sv-title">
+  <div class="lines"></div>
   <div class="wrap">
     <div class="sv-head">
-      <div>
-        <h2 id="sv-title">Our Services</h2>
-        <p>Select one of our carpet services</p>
-      </div>
-      <a class="btn btn-rose" href="https://www.wildrosecarpetcleaning.com/get-a-quote">Get a Quote</a>
+      <div><h2 id="sv-title">Our Services</h2><p>Select one of our carpet services</p></div>
+      <a class="btn btn-rose" href="https://www.wildrosecarpetcleaning.com/get-a-quote">Get a Quote <svg><use href="#arrow"/></svg></a>
     </div>
     <div class="sv-grid">
       <div class="sv-list" role="tablist" aria-label="Carpet services">
-        <button class="sv-tab" role="tab" id="t-clean" aria-controls="p-clean" aria-selected="true">Carpet Cleaning<span class="dot"><svg><use href="#arrow"/></svg></span></button>
-        <button class="sv-tab" role="tab" id="t-repair" aria-controls="p-repair" aria-selected="false" tabindex="-1">Carpet Repair<span class="dot"><svg><use href="#arrow"/></svg></span></button>
-        <button class="sv-tab" role="tab" id="t-stretch" aria-controls="p-stretch" aria-selected="false" tabindex="-1">Carpet Re-Stretching<span class="dot"><svg><use href="#arrow"/></svg></span></button>
-        <button class="sv-tab" role="tab" id="t-jan" aria-controls="p-jan" aria-selected="false" tabindex="-1">Commercial Janitorial<span class="dot"><svg><use href="#arrow"/></svg></span></button>
+        <button class="sv-tab" role="tab" id="t-clean" aria-controls="p-clean" aria-selected="true"><span class="t">Carpet Cleaning</span><span class="dot"><svg><use href="#arrow"/></svg></span></button>
+        <button class="sv-tab" role="tab" id="t-repair" aria-controls="p-repair" aria-selected="false" tabindex="-1"><span class="t">Carpet Repair</span><span class="dot"><svg><use href="#arrow"/></svg></span></button>
+        <button class="sv-tab" role="tab" id="t-stretch" aria-controls="p-stretch" aria-selected="false" tabindex="-1"><span class="t">Carpet Re-Stretching</span><span class="dot"><svg><use href="#arrow"/></svg></span></button>
+        <button class="sv-tab" role="tab" id="t-jan" aria-controls="p-jan" aria-selected="false" tabindex="-1"><span class="t">Commercial Janitorial</span><span class="dot"><svg><use href="#arrow"/></svg></span></button>
       </div>
       <div class="sv-stage">
+        <span class="sv-count" aria-hidden="true">1 / 4</span>
         <div class="sv-panel on" role="tabpanel" id="p-clean" aria-labelledby="t-clean">
-          <img src="images/carpet-cleaning-wand.jpg" alt="Truck mounted carpet cleaning wand on a light carpet" loading="lazy">
+          <img src="images/carpet-cleaning-wand.jpg" alt="Truck mounted carpet cleaning wand on a light carpet">
           <div class="sv-copy"><div><h3>Carpet Cleaning</h3><p>We deep clean your carpets to remove dirt and stains, making them look and feel fresh and new again.</p></div><a class="btn btn-rose" href="https://www.wildrosecarpetcleaning.com/get-a-quote">Book Now</a></div>
         </div>
         <div class="sv-panel" role="tabpanel" id="p-repair" aria-labelledby="t-repair" hidden>
-          <img src="images/carpet-repair.jpg" alt="Hands repairing a seam in a grey loop carpet" loading="lazy">
+          <img src="images/carpet-repair.jpg" alt="Hands repairing a seam in a grey loop carpet">
           <div class="sv-copy"><div><h3>Carpet Repair</h3><p>We fix tears, burns, and other damage to make your carpet look and feel new again.</p></div><a class="btn btn-rose" href="https://www.wildrosecarpetcleaning.com/get-a-quote">Book Now</a></div>
         </div>
         <div class="sv-panel" role="tabpanel" id="p-stretch" aria-labelledby="t-stretch" hidden>
-          <img src="images/carpet-re-stretching.jpg" alt="Mitch re-stretching a carpet with a power stretcher" loading="lazy" style="object-position:50% 35%">
+          <img src="images/carpet-re-stretching.jpg" alt="Mitch re-stretching a carpet with a power stretcher" style="object-position:50% 35%">
           <div class="sv-copy"><div><h3>Carpet Re-Stretching</h3><p>We smooth out wrinkles and bumps in your carpet, making it look like new again.</p></div><a class="btn btn-rose" href="https://www.wildrosecarpetcleaning.com/get-a-quote">Book Now</a></div>
         </div>
         <div class="sv-panel" role="tabpanel" id="p-jan" aria-labelledby="t-jan" hidden>
-          <img src="images/commercial-janitorial.jpg" alt="Commercial janitorial cleaning in a business space" loading="lazy">
+          <img src="images/commercial-janitorial.jpg" alt="Cleaner vacuuming the carpet in a modern office lobby in the evening">
           <div class="sv-copy"><div><h3>Commercial Janitorial</h3><p>We help your building or business feel clean and welcoming to staff and visitors.</p></div><a class="btn btn-rose" href="https://www.wildrosecarpetcleaning.com/get-a-quote">Book Now</a></div>
         </div>
       </div>
@@ -400,8 +508,23 @@ footer.site{background:var(--ink);color:#AEB8D3;padding:90px 0 0;font-size:15.5p
   </div>
 </section>
 
-<!-- REVIEWS -->
+<section class="band" aria-labelledby="band-title">
+  <div class="bg" role="img" aria-label="Cleaner vacuuming a carpeted office corridor"></div>
+  <div class="wrap">
+    <div class="band-box rv">
+      <p class="kicker" style="color:var(--rose-2)"><svg aria-hidden="true"><use href="#bloom"/></svg>Our services</p>
+      <h2 id="band-title">Commercial Janitorial</h2>
+      <p>We help your building or business feel clean and welcoming to staff and visitors.</p>
+      <div class="acts">
+        <a class="btn btn-rose" href="https://www.wildrosecarpetcleaning.com/get-a-quote">Book Now <svg><use href="#arrow"/></svg></a>
+        <a class="btn btn-ghost" href="tel:1-780-777-5544">780-777-5544</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="reviews" aria-labelledby="rv-title">
+  <svg class="bigbloom" aria-hidden="true"><use href="#bloom"/></svg>
   <div class="wrap grid">
     <div>
       <h2 id="rv-title">Kind words from our customers</h2>
@@ -412,7 +535,7 @@ footer.site{background:var(--ink);color:#AEB8D3;padding:90px 0 0;font-size:15.5p
         <button class="rv-name" role="tab" aria-selected="false" aria-controls="r3" id="rt3" tabindex="-1"><span class="ini">DK</span>Daniel Koerber</button>
       </div>
     </div>
-    <div class="rv-stage">
+    <div class="rv-stage rv">
       <span class="qm" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 18v-5.5C4 8 6.4 5.4 10 5l.6 2C8.5 7.6 7.6 9 7.5 11H10v7H4zm10 0v-5.5C14 8 16.4 5.4 20 5l.6 2c-2.1.6-3 2-3.1 4H20v7h-6z"/></svg></span>
       <div class="rv-panel on" role="tabpanel" id="r1" aria-labelledby="rt1">
         <blockquote>I recently worked with Mitch at Wildrose Carpet Cleaning to clean a deep pile carpet that our puppy was secretly soiling underneath our couch in our basement. Mitch was incredibly responsive to my inquiry and gave me regular updates on the status of my carpet. Understanding how deep of a pile it was, he took the extra time to make sure that is was thoroughly cleaned and the old &ldquo;puppy pee&rdquo; smell was removed.</blockquote>
@@ -430,40 +553,56 @@ footer.site{background:var(--ink);color:#AEB8D3;padding:90px 0 0;font-size:15.5p
   </div>
 </section>
 
-<!-- MEET MITCH -->
+<div class="strip" aria-hidden="true">
+  <div class="track">
+    <figure><img src="images/carpet-cleaning-wand.jpg" alt=""></figure>
+    <figure><img src="images/mitch-wildrose-van.jpg" alt=""></figure>
+    <figure><img src="images/carpet-repair.jpg" alt=""></figure>
+    <figure><img src="images/commercial-janitorial-corridor.jpg" alt=""></figure>
+    <figure><img src="images/carpet-re-stretching.jpg" alt=""></figure>
+    <figure><img src="images/carpet-cleaning-playroom.jpg" alt=""></figure>
+    <figure><img src="images/carpet-repair-detail.jpg" alt=""></figure>
+    <figure><img src="images/mitch-carpet-cleaning.jpg" alt=""></figure>
+    <figure><img src="images/carpet-cleaning-wand.jpg" alt=""></figure>
+    <figure><img src="images/mitch-wildrose-van.jpg" alt=""></figure>
+    <figure><img src="images/carpet-repair.jpg" alt=""></figure>
+    <figure><img src="images/commercial-janitorial-corridor.jpg" alt=""></figure>
+    <figure><img src="images/carpet-re-stretching.jpg" alt=""></figure>
+    <figure><img src="images/carpet-cleaning-playroom.jpg" alt=""></figure>
+    <figure><img src="images/carpet-repair-detail.jpg" alt=""></figure>
+    <figure><img src="images/mitch-carpet-cleaning.jpg" alt=""></figure>
+  </div>
+</div>
+
 <section class="mitch" aria-labelledby="mitch-title">
   <div class="wrap grid">
-    <div class="mitch-photos rv">
-      <figure class="a"><img src="images/mitch-wildrose-van.jpg" alt="Mitch standing beside the Wildrose Carpet Cleaning van"></figure>
-      <figure class="b"><img src="images/carpet-repair-detail.jpg" alt="Mitch working on a carpet repair by a doorway"></figure>
+    <div class="mitch-photos">
+      <figure class="a clip"><img src="images/mitch-wildrose-van.jpg" alt="Mitch standing beside the Wildrose Carpet Cleaning van"></figure>
+      <figure class="b rv"><img src="images/carpet-repair-detail.jpg" alt="Mitch working on a carpet repair by a doorway"></figure>
     </div>
     <div class="txt rv">
+      <p class="kicker"><svg aria-hidden="true"><use href="#bloom"/></svg>The owner</p>
       <h2 id="mitch-title">Meet Mitch</h2>
       <p>Mitch began Wildrose Carpet Cleaning in 2023, a family-owned and operated truck mounted carpet cleaning service. WCC has since moved to Spruce Grove, where Mitch grew up.</p>
       <p>Since 2023, Wildrose has grown into a full-service janitorial and carpet cleaning operation serving as south as Red Deer and as north as Yellowknife.</p>
       <p>Despite the scale of our janitorial work, Mitch still enjoys local repair and restretch jobs. It keeps him hands-on and working with what he loves most; carpet!</p>
       <a class="btn btn-line" href="mailto:info@wildrosecarpetcleaning.com?subject=A%20Question%20for%20the%20Greatest%20Carpet%20Cleaner%20of%20All%20Time" style="margin-top:12px">Contact Mitch <svg><use href="#arrow"/></svg></a>
     </div>
-    <div class="reach" id="reach" aria-label="Janitorial service reaches from Red Deer in the south to Yellowknife in the north, based in Spruce Grove">
+    <div class="reach" id="reach" aria-label="Service reaches from Red Deer in the south to Yellowknife in the north, based in Spruce Grove">
       <svg viewBox="0 0 160 520" aria-hidden="true">
-        <!-- spaced by latitude: Yellowknife 62.45, Spruce Grove 53.54, Red Deer 52.27 -->
         <line class="track" x1="30" y1="20" x2="30" y2="500"/>
         <path class="run" d="M30 500 L30 20"/>
         <circle cx="30" cy="20" r="9" fill="#14244E"/>
-        <text class="city" x="52" y="18">Yellowknife</text>
-        <text x="52" y="38">North</text>
+        <text class="city" x="52" y="18">Yellowknife</text><text x="52" y="38">North</text>
         <g transform="translate(12 415)" style="color:#F06E9A"><use href="#bloom" width="36" height="36"/></g>
-        <text class="city" x="52" y="430">Spruce Grove</text>
-        <text x="52" y="450">Home base</text>
+        <text class="city" x="52" y="430">Spruce Grove</text><text x="52" y="450">Home base</text>
         <circle cx="30" cy="500" r="9" fill="#14244E"/>
-        <text class="city" x="52" y="500">Red Deer</text>
-        <text x="52" y="520">South</text>
+        <text class="city" x="52" y="500">Red Deer</text><text x="52" y="520">South</text>
       </svg>
     </div>
   </div>
 </section>
 
-<!-- SERVICE AREAS -->
 <section class="areas" aria-labelledby="ar-title">
   <div class="wrap">
     <div class="top">
@@ -471,14 +610,25 @@ footer.site{background:var(--ink);color:#AEB8D3;padding:90px 0 0;font-size:15.5p
         <h2 id="ar-title">Service Areas</h2>
         <p>Serving Edmonton Alberta and Surrounding Areas, including Spruce Grove, Stony Plain and St. Albert.</p>
       </div>
-      <a class="btn btn-line more" href="https://www.wildrosecarpetcleaning.com">Read More <svg><use href="#arrow"/></svg></a>
+      <a class="btn btn-line" href="https://www.wildrosecarpetcleaning.com">Read More <svg><use href="#arrow"/></svg></a>
     </div>
     <ul class="towns">
-      <li><svg aria-hidden="true"><use href="#bloom"/></svg>Edmonton</li>
-      <li><svg aria-hidden="true"><use href="#bloom"/></svg>Spruce Grove</li>
-      <li><svg aria-hidden="true"><use href="#bloom"/></svg>Stony Plain</li>
-      <li><svg aria-hidden="true"><use href="#bloom"/></svg>St. Albert</li>
+      <li class="rv"><svg aria-hidden="true"><use href="#bloom"/></svg>Edmonton</li>
+      <li class="rv"><svg aria-hidden="true"><use href="#bloom"/></svg>Spruce Grove</li>
+      <li class="rv"><svg aria-hidden="true"><use href="#bloom"/></svg>Stony Plain</li>
+      <li class="rv"><svg aria-hidden="true"><use href="#bloom"/></svg>St. Albert</li>
     </ul>
+    <div class="quote grain">
+      <svg class="fl" aria-hidden="true"><use href="#bloom"/></svg>
+      <div>
+        <h2>Enjoy your carpet again.</h2>
+        <div style="margin-top:28px"><a class="btn btn-rose" href="https://www.wildrosecarpetcleaning.com/get-a-quote">Get a Quote <svg><use href="#arrow"/></svg></a></div>
+      </div>
+      <div class="side">
+        <a class="tel" href="tel:1-780-777-5544">780-777-5544</a>
+        <a class="mail" href="mailto:info@wildrosecarpetcleaning.com?subject=Website%20Inquiry">info@wildrosecarpetcleaning.com</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -488,7 +638,7 @@ footer.site{background:var(--ink);color:#AEB8D3;padding:90px 0 0;font-size:15.5p
   <div class="wrap">
     <div class="f-grid">
       <div>
-        <img src="images/wildrose-logo.png" alt="Wildrose Carpet Cleaning" width="490" height="157" loading="lazy">
+        <img src="images/wildrose-logo.png" alt="Wildrose Carpet Cleaning" width="490" height="157">
         <p>Professional carpet cleaning services in Edmonton, Alberta and Surrounding Areas.</p>
       </div>
       <div>
@@ -523,43 +673,64 @@ footer.site{background:var(--ink);color:#AEB8D3;padding:90px 0 0;font-size:15.5p
 
 <script>
 (function(){
-  // sticky header shadow
-  var hdr=document.querySelector('header.site');
-  addEventListener('scroll',function(){hdr.classList.toggle('scrolled',scrollY>20)},{passive:true});
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hdr=document.querySelector('header.site'),bar=document.querySelector('.progress'),bandBg=document.querySelector('.band .bg'),band=document.querySelector('.band');
+  function onScroll(){
+    hdr.classList.toggle('scrolled',scrollY>20);
+    var h=document.documentElement.scrollHeight-innerHeight;bar.style.transform='scaleX('+(h>0?scrollY/h:0)+')';
+    if(!reduce&&bandBg){var r=band.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight){bandBg.style.transform='translateY('+((r.top+r.height/2-innerHeight/2)*-0.12)+'px)'}}
+  }
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
 
-  // mobile menu
   var mb=document.querySelector('.menu-btn'),nav=document.getElementById('mainnav');
   mb.addEventListener('click',function(){var o=nav.classList.toggle('open');mb.setAttribute('aria-expanded',o)});
   nav.addEventListener('click',function(e){if(e.target.tagName==='A'){nav.classList.remove('open');mb.setAttribute('aria-expanded','false')}});
 
-  // generic tabs (services + reviews)
-  function tabs(listSel,onClass){
+  function tabs(listSel,cb){
     var list=document.querySelector(listSel),btns=[].slice.call(list.querySelectorAll('[role=tab]'));
     function pick(b,focus){
       btns.forEach(function(x){
         var p=document.getElementById(x.getAttribute('aria-controls')),on=x===b;
         x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;
-        if(on){p.hidden=false;requestAnimationFrame(function(){p.classList.add(onClass)})}
-        else{p.classList.remove(onClass);p.hidden=true}
+        if(on){p.hidden=false;requestAnimationFrame(function(){requestAnimationFrame(function(){p.classList.add('on')})})}
+        else{p.classList.remove('on');p.hidden=true}
       });
       if(focus)b.focus();
+      if(cb)cb(btns.indexOf(b));
     }
     btns.forEach(function(b,i){
-      b.addEventListener('click',function(){pick(b);if(listSel==='.sv-list'&&innerWidth<960){document.querySelector('.sv-stage').scrollIntoView({behavior:'smooth',block:'center'})}});
+      b.addEventListener('click',function(){pick(b);list.dispatchEvent(new Event('userpick'))});
       b.addEventListener('keydown',function(e){
-        var k=e.key,n=null;
-        if(k==='ArrowDown'||k==='ArrowRight')n=btns[(i+1)%btns.length];
-        if(k==='ArrowUp'||k==='ArrowLeft')n=btns[(i-1+btns.length)%btns.length];
-        if(n){e.preventDefault();pick(n,true)}
+        var n=null;
+        if(e.key==='ArrowDown'||e.key==='ArrowRight')n=btns[(i+1)%btns.length];
+        if(e.key==='ArrowUp'||e.key==='ArrowLeft')n=btns[(i-1+btns.length)%btns.length];
+        if(n){e.preventDefault();pick(n,true);list.dispatchEvent(new Event('userpick'))}
       });
     });
+    return {pick:function(i){pick(btns[i])},count:btns.length,list:list};
   }
-  tabs('.sv-list','on');
-  tabs('.rv-names','on');
 
-  // reveal on scroll + reach line
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add(e.target.id==='reach'?'go':'in');io.unobserve(e.target)}})},{threshold:.2});
-  document.querySelectorAll('.rv,#reach').forEach(function(el){io.observe(el)});
+  // services: auto-advance until the visitor picks one
+  var svc=document.querySelector('.services'),count=document.querySelector('.sv-count'),cur=0,timer=null;
+  var sv=tabs('.sv-list',function(i){cur=i;count.textContent=(i+1)+' / 4'});
+  function restartBar(){svc.classList.remove('auto');void svc.offsetWidth;svc.classList.add('auto')}
+  function startAuto(){if(reduce)return;restartBar();timer=setInterval(function(){sv.pick((cur+1)%sv.count);restartBar()},6000)}
+  function stopAuto(){clearInterval(timer);timer=null;svc.classList.remove('auto')}
+  sv.list.addEventListener('userpick',stopAuto);
+  document.querySelector('.sv-stage').addEventListener('mouseenter',stopAuto);
+  new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&timer===null&&!svc.dataset.stopped){startAuto()}else if(!e.isIntersecting&&timer){clearInterval(timer);timer=null}})},{threshold:.35}).observe(svc);
+  sv.list.addEventListener('userpick',function(){svc.dataset.stopped=1});
+  document.querySelector('.sv-stage').addEventListener('mouseenter',function(){svc.dataset.stopped=1});
+
+  // rail links open the matching service
+  document.querySelectorAll('.rail a').forEach(function(a){a.addEventListener('click',function(){sv.pick(+a.dataset.svc);stopAuto();svc.dataset.stopped=1})});
+
+  tabs('.rv-names');
+
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add(e.target.id==='reach'?'go':'in');io.unobserve(e.target)}})},{threshold:.18});
+  document.querySelectorAll('.rv,.clip,#reach').forEach(function(el,i){
+    if(el.closest('.towns'))el.style.transitionDelay=([].indexOf.call(el.parentNode.children,el)*0.12)+'s';
+    io.observe(el)});
 })();
 </script>
 </body>
